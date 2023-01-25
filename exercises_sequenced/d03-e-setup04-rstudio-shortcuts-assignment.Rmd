@@ -31,33 +31,33 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * Within the script editor or a chunk
 
-    * `Alt` + `-`
+    * `Alt` + `-`: Insert assignment operator
 
 
-    * `Shift` + `Cmd/Ctrl` + `M`
+    * `Shift` + `Cmd/Ctrl` + `M`: Insert pipe operator
 
 
-    * `Cmd/Ctrl` + `Enter`
+    * `Cmd/Ctrl` + `Enter`: Run current lin/selection
 
 
-    * `F1` (Note: on a Mac you need to press `fn` + `F1`)
+    * `F1` (Note: on a Mac you need to press `fn` + `F1`): Show help for function at cursor
 
 
-	* `Cmd/Ctrl` + `Shift` + `C`
+	* `Cmd/Ctrl` + `Shift` + `C`: Comment/uncomment current line/selection
 
 
 
 * Within R Markdown
 
-    * `Cmd/Ctrl` + `Alt` + `I`
+    * `Cmd/Ctrl` + `Alt` + `I`: Insert chunk
 
 
 * Within a chunk
 
-    * `Shift` + `Cmd/Ctrl` + `Enter`
+    * `Shift` + `Cmd/Ctrl` + `Enter`: Run code
 
 
-    * `Ctrl` + `I` (`Cmd` + `I`)
+    * `Ctrl` + `I` (`Cmd` + `I`): Reindent lines
 
 
 Try this below!
@@ -66,9 +66,9 @@ Try this below!
 ## Re-indent these lines
 c(
   "foo",
-    "bar",
-      "goo",
-        "gah"
+  "bar",
+  "goo",
+  "gah"
 )
 ```
 
@@ -76,17 +76,18 @@ c(
 ### __q2__ For a chunk, what header option do you use to
 
 * Run the code, don't display it, but show its results?
-
+echo = FALSE
 
 * Run the code, but don't display it or its results?
-
+include = FALSE
 
 ### __q3__ How do stop the code in a chunk from running once it has started?
-
+ESC
 
 ### __q4__ How do you show the "Document Outline" in RStudio?
 
 *Hint*: Try googling "rstudio document outline"
+CTRL + SHIFT + O
 
 
 <!-- include-exit-ticket -->

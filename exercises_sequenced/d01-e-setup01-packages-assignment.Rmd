@@ -27,20 +27,26 @@ In [RStudio](https://bookdown.org/yihui/rmarkdown/r-code.html) use the shortcut
 `Ctrl + Alt + I` (`Cmd + Option + I` on Mac). Type the command
 `library(tidyverse`).
 
+```{r}
+library(tidyverse)
+```
+
 
 Make sure to load packages at the *beginning* of your notebooks! This is a
 best-practice.
 
 ### __q2__ Run the chunk with `library(tidyverse)`. What packages are loaded?
 
-In
-[RStudio](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
+In [RStudio](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
 press `Ctrl + Alt + T` (`Cmd + Option + T` on Mac) to run the code chunk at your
 cursor.
+
+The packages currently loaded are ggplot2, purrr, tibble, dplyr, tidyr, stringr, readr, and forcats.
 
 
 ### __q3__ What are the main differences between `install.packages()` and `library()`? How often do you need to call each one?
 
+install.packages() will install a new package to your computer. library() will recall a package already installed on your computer. You only need to call install.packages() once (assuming installation is successful) and you can load a package using library() everytime you do an analysis. 
 
 <!-- include-exit-ticket -->
 # Exit Ticket

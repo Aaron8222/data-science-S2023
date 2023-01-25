@@ -30,9 +30,17 @@ knitr::opts_chunk$set(echo = TRUE)
 *Hint*: We learned how to inspect a dataset in `e-data-00-basics`!
 
 ```{r q1-task, eval=FALSE}
+?diamonds
 ```
+Cut: Quality of the cut
+Color: Diamond color
+Clarity: A measurement of how clear the diamond is
 
 ### __q2__ Use your "standard checks" to determine what variables the dataset has.
+```{r}
+?diamonds
+str(diamonds)
+```
 
 
 Now that we have the list of variables in the dataset, we know what we can visualize!
@@ -46,12 +54,14 @@ y` pairs. Language is hard!
 
 ```{r q3-task}
 ## TODO: Complete this code
-ggplot(diamonds)
+ggplot(data = diamonds) + 
+  geom_point(mapping = aes(x = carat, y = price))
 ```
 
 **Observations**:
 
 - (Write your observations here!)
+The majority of diamonds are between 0 and 2.5 carats. The max price per carat increases significantly after 1 carat.
 
 ## A note on *aesthetics*
 
@@ -69,12 +79,14 @@ simultaneously.
 
 ```{r q4-task}
 ## TODO: Complete this code
-ggplot(diamonds)
+ggplot(data = diamonds) + 
+  geom_point(mapping = aes(x = carat, y = price, color = cut))
 ```
 
 **Observations**:
 
 - (Write your observations here!)
+The cut of the diamond does not seem to affect the price of a diamond.
 
 <!-- include-exit-ticket -->
 # Exit Ticket

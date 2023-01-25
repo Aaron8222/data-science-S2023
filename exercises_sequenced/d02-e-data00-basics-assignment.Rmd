@@ -52,10 +52,17 @@ Some nomenclature:
 *Hint*: You can run `?diamonds` to get information on a built-in dataset.
 
 ```{r load-packages, eval=FALSE}
+head(diamonds)
+?diamonds
 ```
+The cut variable refers to the quality of the cut, the color refers to the diamond color, and the clarity refers to the measurement of how clear the diamond is.
 
 ### __q2__ Run `glimpse(diamonds)`; what variables does `diamonds` have?
 
+```{r}
+glimpse(diamonds)
+```
+The dataset has 10 variables: carat, cut, color, clarity, depth, table, price, x, y, and z.
 
 ### __q3__ Run `summary(diamonds)`; what are the common values for each of the
 variables? How widely do each of the variables vary?
@@ -66,10 +73,21 @@ a sense of variation.
 ```{r q3-task}
 summary(diamonds)
 ```
+Carat: The average carat is 0.7979 with a median of 0.7 and values range from 0.2 to 5.01.
+Cut: The most common cut is ideal, followed by premium and very good. The cuts vary from fair to ideal.
+Color: The most common color is G, followed by E and F. The colors vary from D to J.
+Clarity: The most common clarity is SI1, followed by VS2 and SI2. The clarity values vary greatly.
+Depth: The average depth is 61.75 with a median of 61.8 and values range from 43 to 79.
+Table: The average table is 57.46 with a median of 61.8 and values range from 43 to 79.
+Price: The average price is 3933 with a median of 2401 and values range from 326 to 18823.
+x: The average x is 5.731 with a median of 5.7 and values range from 0 to 10.74.
+y: The average y is 5.735 with a median of 5.71 and values range from 0 to 58.9.
+z: The average z is 3.539 with a median of 3.53 and values range from 0 to 31.8.
 
 **Observations**:
 
 - (Write your observations here!)
+There does not appear to be many diamonds with cuts below "very good" with most diamonds having a G color. The size of diamond carats seem to be fairly evenly spread out in b/w the two extremes and prices vary greatly ranging from $326 to $18823.
 
 You should always analyze your dataset in the simplest way possible, build
 hypotheses, and devise more specific analyses to probe those hypotheses. The
@@ -96,13 +114,14 @@ Would translate into the tiny "story"
 - summarize it by computing the `mean` of `carat`
 
 *What the pipe actually does*. The pipe operator `LHS %>% RHS` takes its
-left-hand side (LHS) and inserts it as an the first argument to the function on
+left-hand side (LHS) and inserts it as the first argument to the function on
 its right-hand side (RHS). So the pipe will let us take `glimpse(diamonds)` and
 turn it into `diamonds %>% glimpse()`.
 
 ### __q4__ Use the pipe operator to re-write `summary(diamonds)`.
 
 ```{r q4-task}
+diamonds %>% summary
 ```
 
 ## Reading Data
@@ -113,8 +132,7 @@ So far we've only been looking at built-in datasets. Ultimately, we'll want to r
 ### __q5__ Use the function `read_csv()` to load the file `"./data/tiny.csv"`.
 
 ```{r q5-task}
-
-df_q5
+read_csv("./data/tiny.csv")
 ```
 
 <!-- include-exit-ticket -->
