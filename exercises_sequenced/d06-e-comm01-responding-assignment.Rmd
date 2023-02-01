@@ -52,7 +52,7 @@ For example, if your friend tells you "Hey, I just got an A on my exam!", you co
   - This is also *destructive* in that it implicitly conveys a negative reaction by ignoring the substance of your friend's statement.
   - (This is the worst way you can respond to good news!)
 
-Active and constructive responding (ACR) has been shown to be associated with more positive interpersonal relationships [1]. If you want want to have better platonic or romantic relationships, you sould practice ACR!
+Active and constructive responding (ACR) has been shown to be associated with more positive interpersonal relationships [1]. If you want want to have better platonic or romantic relationships, you should practice ACR!
 
 ## Having Productive Discussions
 <!-- -------------------------------------------------- -->
@@ -97,6 +97,9 @@ Here the bolded response is *actively* engaging with your colleague's question, 
 - Is the bolded response **constructive** or **destructive**? Why?
 - How does this statement make you *feel*, relative to the bolded statement before the q1 prompt?
 
+The bolded response is active because the presenter is engaging with the colleague. It is constructive because it is positive feedback. The presenter took the colleague's response well and both the presenter and colleague feel good about it.
+
+
 ### __q2__ Identify the nature of the bolded line below, rating it as either **active vs passive** and **constructive vs destructive**.
 
 > *Presenter*: "Clearly, we can see a positive correlation between price and carat."
@@ -110,6 +113,8 @@ Here the bolded response is *actively* engaging with your colleague's question, 
 - Is the bolded response **active** or **passive**? Why?
 - Is the bolded response **constructive** or **destructive**? Why?
 - How does this statement make you *feel*, relative to the bolded statement before the q1 prompt?
+
+The bolded response is passive because the presenter does not engage with the colleague and instead moves on. It is constructive because it is still a positive comment. The colleague likely feels like the presenter blew him/her off.
 
 **Intermediate Conclusion**: We can quite naturally think of discussion responses in the APCD framework. Therefore, we should try to give active and constructive responses in data discussions!
 
@@ -176,6 +181,8 @@ Let's practice once more!
 
 - Is the bolded response **active** or **passive**? Why?
 - Is the bolded response **constructive** or **destructive**? Why?
+
+The response passive because the colleague isn't referring to anything to the graph, rather a tangent topic. It is neither constructive or destructive because it is a topic not related to the graph.
 
 <!-- include-exit-ticket -->
 # Exit Ticket

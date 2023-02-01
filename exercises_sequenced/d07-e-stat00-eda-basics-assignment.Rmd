@@ -44,6 +44,7 @@ library(tidyverse)
 to do? Do those simple checks on the diamonds dataset below.
 
 ```{r q0-task}
+?diamonds
 ```
 
 I'm going to walk you through a train of thought I had when studying the
@@ -71,6 +72,7 @@ diamonds %>%
 
 **Observations**:
 - Write your observations here!
+Ideal diamond cuts are in fact the most numerous out of all the diamond cuts. There are over 20,000 ideal diamond cuts, far greater than even the next greatest cut (premium at 13,000).
 
 ## Hypothesis 2
 
@@ -88,6 +90,7 @@ diamonds %>%
 
 **Observations**:
 - Write your observations here!
+This does not relate to the hypothesis because this does not account for the other C's such as carat or clarity.
 
 The following is a set of *boxplots*; the middle bar denotes the median, the
 boxes denote the *quartiles* (upper and lower "quarters" of the data), and the
@@ -103,6 +106,7 @@ diamonds %>%
 
 **Observations**:
 - Write your observations here!
+This graph contradicts hypothesis 2. On average, ideal cuts are slightly less expensive if not the same price as other cuts of diamonds.
 
 ## Unraveling Hypothesis 2
 
@@ -123,6 +127,7 @@ diamonds %>%
 
 **Observations**:
 - Write your observations here!
+There is some data suggesting the "carat over cut" hypothesis as can be seen between premium and ideal cuts. There is a noticeable higher carat average for premium than ideal cuts. 
 
 ## Footnotes
 

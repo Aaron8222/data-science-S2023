@@ -33,8 +33,8 @@ the same visual using `geom_col()`.
 
 ```{r q1-task}
 mpg %>%
-  ggplot(aes(trans)) +
-  geom_bar()
+  ggplot(aes(x = model, y = trans)) +
+  geom_col()
 ```
 
 The reading mentioned that when using `geom_col()` our x-y data should be
@@ -62,6 +62,7 @@ mpg %>%
 
 **Observations**:
 - Write your observations here!
+It hwy values are extremely high and aren't accurate. It's almost as if the values were added together.
 
 A more standard way to visualize this kind of data is a *scatterplot*, which
 we'll study later. For now, here's an example of a more effective way to
@@ -88,6 +89,7 @@ mpg %>%
 
 **Observations**:
 - Write your observations here!
+The graph above shows the 38 most popular models of cars and what classes they are.
 
 ```{r q4-v2}
 ## TODO: Run this code without changing, describe your observations on the data
@@ -98,11 +100,14 @@ mpg %>%
 
 **Observations**:
 - Write your observations here!
+The graph above shows the top 38 most popular cars and what classes they are. The drivetrain is shown for each class.
 
 **Compare `v1` and `v2`**:
 
 - Which visualization---`v1` or `v2`---enabled you to make more observations?
 - What was the difference between `v1` and `v2`?
+
+V2 enabled me to make more observations. The difference is that in v2 the colors provide useful information, while the color in v1 does not because it will just be one color.
 
 ### __q4__ The following code has a bug; it does not do what its author intended.
 Identify and fix the bug. What does the resulting graph tell you about the
@@ -113,13 +118,14 @@ do this in a future exercise.
 
 ```{r q4-task}
 mpg %>%
-  ggplot(aes(x = manufacturer, fill = class), position = "dodge") +
-  geom_bar() +
+  ggplot(aes(x = manufacturer, fill = class)) +
+  geom_bar(position = "dodge") +
   theme(axis.text.x = element_text(angle = 270, vjust = 0.5, hjust = 0))
 ```
 
 **Observations**
 - Your observations here!
+Cheverolet, dodge, ford, nissan, suburu, toyota, and volkswagen make a variety of car classes, while others focus on making only one or two class of cars, such as audi, honda, land rover, lincoln, mercury, and pontiac.
 
 ### __q5__ The following graph is hard to read. What other form of faceting would
 make the visual more convenient to read? Modify the code below with your
@@ -129,7 +135,7 @@ suggested improvement.
 mpg %>%
   ggplot(aes(x = cyl)) +
   geom_bar() +
-  facet_grid(~ manufacturer)
+  facet_wrap(~ manufacturer)
 ```
 
 <!-- include-exit-ticket -->

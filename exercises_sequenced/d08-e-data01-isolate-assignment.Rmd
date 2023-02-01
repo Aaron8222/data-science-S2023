@@ -33,7 +33,10 @@ flights %>% glimpse
 
 ```{r q1-task}
 ## df_q1 <- TODO: Your code goes here!
-df_q1
+df_q1 <- flights %>%
+  select(ends_with("_time"))
+  
+  
 ```
 
 The following is a *unit test* of your code; if you managed to solve task __q2__
@@ -52,7 +55,7 @@ print("Nice!")
 *Hint*: The function `everything()` will be useful!
 
 ```{r q2-task}
-df_q2 <- flights %>% select(everything()) # TODO: Modify to move columns to the front
+df_q2 <- flights %>% select(dest, origin, carrier, everything())
 df_q2
 ```
 
@@ -72,8 +75,10 @@ this fashion will help us see the values of particular columns.
 ### __q3__ Fix the following code. What is the mistake here? What is the code trying to accomplish?
 
 ```{r q3-task}
-## flights %>% filter(dest = LAX) # Uncomment and run to see error
+flights %>% 
+  filter(dest == "LAX")
 ```
+The code is trying to filter for all flights with destinations to LAX.
 
 The next error is *far more insidious*....
 
@@ -83,6 +88,7 @@ The next error is *far more insidious*....
 BOS <- "LGA"
 flights %>% filter(dest == BOS)
 ```
+The code set the variable BOS to "LGA."
 
 It will take practice to get used to when and when not to use quotations. Don't
 worry---we'll get lots of practice!
@@ -95,6 +101,11 @@ city? Let's do a quick check to get an idea:
 ```{r q5-task}
 ## df_q5a <- dest is JFK, LGA, or EWR
 ## df_q5b <- origin is JFK, LGA, or EWR
+df_q5a <- flights %>%
+  filter(dest == "JFK" | dest == "LGA" | dest == "EWR")
+
+df_q5b <- flights %>%
+  filter(origin == "JFK" | origin == "LGA" | origin == "EWR")
 ```
 
 Use the following code to check your answer.
@@ -130,7 +141,11 @@ machine learning. (`end-rant`)
 
 ```{r q6-task}
 ## df_q6 <- TODO: Your code here!
-df_q6
+df_q6 <- flights %>%
+  select(air_time, dest, everything()) %>%
+  arrange(desc(air_time))
+  
+  
 ```
 
 ```{r q6-tests}
