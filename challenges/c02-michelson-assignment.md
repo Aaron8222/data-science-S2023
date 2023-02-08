@@ -389,7 +389,8 @@ distinction. It appears there is more variation in the velocity value in
 the good category than the fair or poor. However, there is a higher
 range (max - min value) present in the fair and poor category. The
 average velocity for good distinctness is closer to the true value
-compared to the other two.
+compared to the other two. Both of these factors (variation and poor
+distinctness) would have brought Michelson’s estimate down.
 
 ## Bibliography
 

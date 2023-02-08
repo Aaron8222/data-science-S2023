@@ -238,7 +238,7 @@ df_q2 %>%
 - Make sure to record observations on your graphs! Note: 3 = good, 2 = fair, 1 = poor
 The first plot is a scatter plot showing the velocity vs the temperature with the distinctness displayed. It appears the temperature does not effect the velocity value. There may be a very slight trend line upward but it is inconclusive with the data available. All the 3 distinctness values are clustered at a higher temperature, while mixed for 1 and 2.
 
-The second plot is a box plot showing the velocity variation for each distinction. It appears there is more variation in the velocity value in the good category than the fair or poor. However, there is a higher range (max - min value) present in the fair and poor category. The average velocity for good distinctness is closer to the true value compared to the other two.
+The second plot is a box plot showing the velocity variation for each distinction. It appears there is more variation in the velocity value in the good category than the fair or poor. However, there is a higher range (max - min value) present in the fair and poor category. The average velocity for good distinctness is closer to the true value compared to the other two. Both of these factors (variation and poor distinctness) would have brought Michelson's estimate down.
 
 
 ## Bibliography
