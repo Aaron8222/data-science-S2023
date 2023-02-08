@@ -112,8 +112,18 @@ tibble to `df_q4`, and assign the appropriate values to `cov_depth` and
 
 ```{r q4-task}
 ## TODO: Compute the `cov_depth` and `cov_diff` and assign the result to df_q4
-df_q4 <-
-  diamonds
+depth <- pull(diamonds, depth)
+x <- pull(diamonds, x)
+y <- pull(diamonds, y)
+z <- pull(diamonds, z)
+
+depth_computed  <- 100 * 2 * z / (x + y)
+diff = depth - depth_computed
+cov_depth = sd(depth) / mean(depth)
+cov_diff = sd(diff) / mean(diff)
+
+data <- data.frame(depth_computed, diff, cov_diff, cov_depth)
+df_q4 <- as_tibble(data)
 df_q4
 ```
 
