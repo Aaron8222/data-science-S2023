@@ -1,7 +1,7 @@
 ---
 title: "Aluminum Data"
-author: "(Your name here)"
-date: 2020-
+author: "Aaron Huang"
+date: 2023-2-11
 output:
   github_document:
     toc: true
@@ -66,8 +66,15 @@ Note that these data are not tidy! The data in this form are convenient for repo
 ```{r q1-task}
 ## TASK: Tidy `df_stang`
 df_stang_long <-
-  df_stang
-
+  df_stang %>%
+    pivot_longer(
+      names_to = c(".value", "angle"),
+      names_sep = "_",
+      cols = contains("_"),
+      names_transform = list("angle" = as.integer)) %>%
+  filter(
+    E > 0
+  )
 df_stang_long
 ```
 
@@ -101,20 +108,24 @@ print("Very good!")
 ### __q2__ Perform a basic EDA on the aluminum data *without visualization*. Use your analysis to answer the questions under *observations* below. In addition, add your own *specific* question that you'd like to answer about the data---you'll answer it below in q3.
 
 ```{r q2-task}
-##
+arrange(df_stang_long, desc(E))
+count(df_stang_long, alloy)
+count(df_stang_long, angle)
+count(df_stang_long, thick)
 ```
 
 **Observations**:
 
 - Is there "one true value" for the material properties of Aluminum?
-  - (Your response here)
+  - There is no one true value because you will always have some error.
 - How many aluminum alloys are in this dataset? How do you know?
-  - (Your response here)
+  - There is only one type of aluminum alloy in this dataset, al_24st.
 - What angles were tested?
-  - (Your response here)
+  - Three angles were tested: 0, 45, and 90.
 - What thicknesses were tested?
-  - (Your response here)
+  - Four thicknesses were tested: 0.022, 0.032, 0.064, and 0.081.
 - (Write your own question here)
+  - How much variation is there in the value of E within each thickness tested? And how do the values compare?
 
 ## Visualize
 <!-- ------------------------- -->
@@ -123,11 +134,17 @@ print("Very good!")
 
 ```{r q3-task}
 ## TASK: Investigate your question from q1 here
+df_stang_long %>%
+  mutate(thick_chr = as.character(thick)) %>%
+  ggplot(aes(x = thick_chr, y = E)) +
+  geom_boxplot()
 ```
 
 **Observations**:
 
 - (Address your question from q1 here)
+  - The highest average E value observed came from aluminum with thickness of 0.022 in, followed by 0.064, 0.032, and 0.081 in. The E values recorded from aluminum with thickness of 0.081 is significantly lower than the other three. There is about the same variation and range in each of the thickness catagories.
+
 
 ### __q4__ Consider the following statement:
 
@@ -147,7 +164,7 @@ df_stang_long %>%
 **Observations**:
 
 - Does this graph support or contradict the claim above?
-  - (Your response here)
+  - From this graph, it supports the claim that E is an intensive property. There is no clear trend between thickness and the value of E. However, the E values for test pieces that have a thickness of 0.081 is significantly lower than the other three.
 
 # References
 <!-- -------------------------------------------------- -->
