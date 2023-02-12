@@ -78,12 +78,17 @@ Now it's your turn!
 df_z <- tibble(z = rnorm(100))
 
 ## TODO: Compute `count_total`, `count_A`, and `fr`
+df_z %>%
+  mutate(in_A = (-1.96 <= z) & (z <= +1.96)) %>%
+  summarize(count_total = n(), count_A = sum(in_A), fr = mean(in_A))
 ```
 
 **Observations**:
 
 - What value of `fr` did you predict?
+Prediction: 0.9
 - Did your prediction match your calculation?
+My prediction was close to my calculation.
 
 The following graph visualizes the set $A = {z | z <= 0}$ against a standard normal density.
 

@@ -38,7 +38,8 @@ your pick!
 
 ```{r q1-task}
 diamonds %>%
-  ## TODO: Use mutate to add the column `carat_cut`
+  select(everything()) %>%
+  mutate(carat_cut = cut_number(carat, n = 10)) %>%
   ggplot(aes(x = carat_cut, y = price)) +
   geom_boxplot()
 ```
@@ -46,6 +47,8 @@ diamonds %>%
 **Observations**
 - Write your observations here!
 - Make sure to distinguish between the trend in median (bar), quantiles (box edges), and whiskers (vertical lines)
+With only 3 box plots, the median price for higher carats increases, but it is not linear. There is a lot of variation in price 0.5 carats and above, however, you see less of this below 0.5 carats. With 10 box plots, you can see a clear price increase upward as the carat increases. Again, you can see more variation (denoted by the vertical lines and dots) as the carat increases.
+
 
 ### __q2__ The following code visualizes the count of diamonds of *all* carats according to their cut and color. Modify the code to consider *only* diamonds with `carat >= 2`. Does the most common group of cut and color change?
 
@@ -62,6 +65,7 @@ Modify the following code:
 ```{r q2-task}
 ## TODO: Modify the code below to consider only diamonds with carat >= 2
 diamonds %>%
+  filter(carat >= 2) %>%
   count(cut, color) %>%
   ggplot(aes(cut, color, fill = n)) +
   geom_tile()
@@ -69,13 +73,15 @@ diamonds %>%
 
 **Observations**:
 - Did the most common group of cut and color change?
+The majority of diamonds above 2 carats are premium cuts with colors H, I, J, while the most common for all carats is ideal with the color G.
 
 ### __q3__ The following plot has overlapping x-axis labels. Use a verb from the reading to `flip` the coordinates and improve readability.
 
 ```{r q3-task}
 mpg %>%
-  ggplot(aes(manufacturer, hwy)) +
-  geom_boxplot()
+  ggplot(aes(manufacturer, hwy))  +
+  geom_boxplot() + 
+  theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
 ```
 
 This is a simple---but important---trick to remember when visualizing data with many categories.
