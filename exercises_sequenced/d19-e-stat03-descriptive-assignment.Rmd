@@ -87,12 +87,13 @@ Let's learn how to handle this:
 ```{r q1-task}
 ## TASK: Edit to drop all NAs before computing the mean
 flights %>%
-  summarize(dep_delay = mean(dep_delay))
+  summarize(dep_delay = mean(dep_delay, na.rm  = TRUE))
 ```
 
 **Observations**:
 
 - What is the mean departure delay time, among available values?
+The mean departure delay time is 12.6 hours.
 
 ## Central Tendency
 <!-- ------------------------- -->
@@ -166,14 +167,24 @@ flights %>%
   head(5)
 
 ## TASK: Duplicate the code above, but sort by `median` instead
+flights %>%
+  group_by(carrier) %>%
+  summarize(
+    mean = mean(dep_delay, na.rm = TRUE),
+    median = median(dep_delay, na.rm = TRUE)
+  ) %>%
+  arrange(desc(median)) %>%
+  head(5)
 ```
 
 **Observations**:
 
 - Which carriers are at the top of both `mean` and `median` departure delay?
+F9, FL, and WN
 - Which carriers differ in the two lists?
+EV, YV top in mean. UA, VX top in median
 - What do negative values of `dep_delay` mean?
-
+Early departures
 ## Multi-modality
 <!-- ------------------------- -->
 
@@ -247,7 +258,7 @@ set.seed(101)
 v_test_iqr <- rnorm(n = 10)
 
 ## TASK: Compute the interquartile range
-test_iqr <- NA_real_
+test_iqr <- quantile(v_test_iqr, probs = 0.75) - quantile(v_test_iqr, probs = 0.25)
 ```
 
 Use the following test to check your answer.
@@ -289,13 +300,33 @@ tibble(
 
 ```{r q4-task}
 ## TODO: Use code from q2 to compute the sd and IQR, rank as before
+flights %>%
+  group_by(carrier) %>%
+  summarize(
+    sd = sd(dep_delay, na.rm = TRUE),
+    IQR = IQR(dep_delay, na.rm = TRUE)
+  ) %>%
+  arrange(desc(sd)) %>%
+  head(5)
+
+flights %>%
+  group_by(carrier) %>%
+  summarize(
+    sd = sd(dep_delay, na.rm = TRUE),
+    IQR = IQR(dep_delay, na.rm = TRUE)
+  ) %>%
+  arrange(desc(IQR)) %>%
+  head(5)
 ```
 
 **Observations**:
 
 - Which carriers are at the top of both `sd` and `IQR` departure delay?
+YV, EV, F9, and FL
 - Which carriers differ in the two lists?
+HA top in sd and 9E top in IQR
 - Which carrier has the biggest difference between its `sd` and `IQR`? What might this mean?
+HA has a large difference bw sd and IQR. It appears HA has a lot more outliers than other carriers
 
 ## Dependence
 <!-- ------------------------- -->
@@ -358,8 +389,9 @@ df_line %>%
 **Observations**:
 
 - For what values of `slope` is the correlation positive?
+values > 0
 - For what values of `slope` is the correlation negative?
-
+values < 0
 Note that this means *correlation is a measure of dependence*; it is **not** a measure of slope! It is better thought of as how *strong* the relationship between two variables is. A closer-to-zero correlation indicates a noisy relationship between variables, while a closer-to-one (in absolute value) indicates a more perfect, predictable relationship between the variables. For instance, the following code simulates data with different correlations, and facets the data based on the underlying correlation.
 
 ```{r ex-cor-lineup}
@@ -431,7 +463,7 @@ df_quad %>%
 **Observations**:
 
 - What do you predict the correlations to be?
-- What are the actual correlations?
+Both correlations near 0
 
 One last point about correlation: The mean is to Pearson correlation as the median is to Spearman correlation. The median and Spearman's rho are robust to outliers.
 
