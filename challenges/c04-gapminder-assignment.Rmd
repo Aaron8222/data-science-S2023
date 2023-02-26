@@ -1,7 +1,7 @@
 ---
 title: "Gapminder"
-author: "(Your name here)"
-date: 2020-
+author: "Aaron Huang"
+date: 2023-2-26
 output:
   github_document:
     toc: true
@@ -56,11 +56,13 @@ dataset?
 
 ```{r q0-task}
 ## TASK: Do your "first checks" here!
+glimpse(gapminder)
 ```
 
 **Observations**:
 
 - Write all variable names here
+The variable names are country, continent, year, lifeExp, pop, and gdpPercap.
 
 ### __q1__ Determine the most and least recent years in the `gapminder` dataset.
 
@@ -68,8 +70,12 @@ dataset?
 
 ```{r q1-task}
 ## TASK: Find the largest and smallest values of `year` in `gapminder`
-year_max <- NA_real_
-year_min <- NA_real_
+year_max <- gapminder %>%
+  select(year) %>%
+  max()
+year_min <- gapminder %>%
+  select(year) %>%
+  min()
 ```
 
 Use the following test to check your work.
@@ -95,26 +101,48 @@ You may encounter difficulties in visualizing these data; if so document your ch
 
 ```{r q2-task}
 ## TASK: Create a visual of gdpPercap vs continent
+gapminder %>%
+  filter(year == year_min) %>%
+  ggplot(aes(continent, gdpPercap)) +
+  geom_col()
+
+gapminder %>%
+  filter(year == year_min) %>%
+  ggplot(aes(continent, gdpPercap)) +
+  geom_boxplot()
 ```
 
 **Observations**:
 
 - Write your observations here
+Asia and Europe has the highest GDP per cap out of all the continents followed by America, Africa, and Oceania. There are a few outliers in the Americas, Asia, and Europe. There is one significant outlier in Asia that is greatly larger than any other country.
 
 **Difficulties & Approaches**:
 
 - Write your challenges and your approach to solving them
+Initially I made a simple bar chart to get a better understanding of the data. Then, I created a boxplot to look at the variation in data within each continent.
 
 ### __q3__ You should have found *at least* three outliers in q2 (but possibly many more!). Identify those outliers (figure out which countries they are).
 
 ```{r q3-task}
 ## TASK: Identify the outliers from q2
+gapminder %>%
+  filter(year == year_min & continent == "Europe") %>%
+  arrange(desc(gdpPercap))
+
+gapminder %>%
+  filter(year == year_min & continent == "Asia") %>%
+  arrange(desc(gdpPercap))
+
+gapminder %>%
+  filter(year == year_min & continent == "Americas") %>%
+  arrange(desc(gdpPercap))
 ```
 
 **Observations**:
 
 - Identify the outlier countries from q2
-  - (Your response here)
+  - The major outlier countries are Switzerland, Kuwait, and the United States.
 
 *Hint*: For the next task, it's helpful to know a ggplot trick we'll learn in an upcoming exercise: You can use the `data` argument inside any `geom_*` to modify the data that will be plotted *by that geom only*. For instance, you can use this trick to filter a set of points to label:
 
@@ -138,11 +166,31 @@ gapminder %>%
 
 ```{r q4-task}
 ## TASK: Create a visual of gdpPercap vs continent
+gapminder %>%
+  filter(year == year_min) %>%
+  ggplot(aes(continent, gdpPercap)) +
+  geom_boxplot() +
+  geom_point(
+    data = . %>% filter(country %in% c("Switzerland", "United States", "Kuwait")),
+    mapping = aes(color = country),
+    size = 2
+  )
+
+gapminder %>%
+  filter(year == year_max) %>%
+  ggplot(aes(continent, gdpPercap)) +
+  geom_boxplot() +
+  geom_point(
+    data = . %>% filter(country %in% c("Switzerland", "United States", "Kuwait", "Ireland")),
+    mapping = aes(color = country),
+    size = 2
+  )
 ```
 
 **Observations**:
 
 - Write your observations here
+In 1952, the top 3 outliers were the United States, Switzerland, and Kuwait. Kuwait's gdp is significantly higher than other other country by almost 90000 gdp per cap. In 2007, Kuwait and the United States remain as the highest gdp per cap in their respective countries. However, Kuwait's gdp has dropped significantly. Switzerland's gdp has increased but no longer has the highest gdp.
 
 # Your Own EDA
 <!-- -------------------------------------------------- -->
@@ -153,18 +201,50 @@ Now it's your turn! We just went through guided EDA considering the GDP per capi
 
 ```{r q5-task1}
 ## TASK: Your first graph
+gapminder %>%
+  filter(year == year_max) %>%
+  ggplot(aes(gdpPercap, lifeExp)) + 
+  geom_point() + 
+  facet_wrap(~continent)
 ```
 
 - (Your notes and observations here)
+Q: Does a larger gdp per capita lead to a longer life expectancy in 2007?
+
+Observations:
+There seems to be a positive correlation between the gdp per cap and the life expectancy. A clear upward trend can be seen in America, Europe, and Asia. However, the gdp per cap does not effect the life expectancy in Africa, suggesting there may be a confounding variable we don't see yet.
+
 
 ```{r q5-task2}
 ## TASK: Your second graph
+gapminder %>%
+  filter(country == "Kuwait") %>%
+  ggplot(aes(year, gdpPercap)) +
+  geom_line() +
+  geom_point()
 ```
 
 - (Your notes and observations here)
+Q: How has Kuwait's gdp per cap changed over the years?
+Kuwait's GDP per cap has always been extremely high due to their plentiful oil resources, which means they were directly tied to the price of global market price of oil. When there was an oil shortage in the 1970s, the gdp per cap skyrocketed and when there was a recession in the 1980s, the gdp per cap fell significantly.
 
 ```{r q5-task3}
 ## TASK: Your third graph
+min_max_norm <- function(x) {
+    (x - min(x)) / (max(x) - min(x))
+  }
+
+gapminder_norm <- as.data.frame(lapply(gapminder[5:6], min_max_norm))
+gapminder_norm$country <- gapminder$country
+
+gapminder_norm %>%
+  filter(country == "United States" | country == "United Kingdom" | 
+           country == "China" | country == "Singapore") %>%
+  ggplot(aes(pop, gdpPercap, color = country)) + 
+  geom_point() +
+  facet_wrap(~country, scales="free_x")
 ```
 
 - (Your notes and observations here)
+Q: Is there a correlation between the population of a country and the gdp per cap?
+Looking at the normalized population and gdp per cap for a few countries, there seems to be a positive correlation between the population and gdp per cap. Although an increase in population increases the gdp per cap, there seems to be other factors that involved that is causing different the different slopes in each country.
