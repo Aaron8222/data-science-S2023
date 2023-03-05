@@ -1,7 +1,7 @@
 ---
 title: "Antibiotics"
-author: "(Your name here)"
-date: 2020-
+author: "Aaron Huang"
+date: 2023-3-2
 output:
   github_document
 ---
@@ -40,6 +40,7 @@ All the deliverables stated in the rubrics above are due **at midnight** before 
 ```{r setup}
 library(tidyverse)
 library(ggrepel)
+library(ggplot2)
 ```
 
 *Background*: The data[1] we study in this challenge report the [*minimum inhibitory concentration*](https://en.wikipedia.org/wiki/Minimum_inhibitory_concentration) (MIC) of three drugs for different bacteria. The smaller the MIC for a given drug and bacteria pair, the more practical the drug is for treating that particular bacteria. An MIC value of *at most* 0.1 is considered necessary for treating human patients.
@@ -75,6 +76,20 @@ In this visual you must show *all three* effectiveness values for *all 16 bacter
 
 ```{r q1.1}
 # WRITE YOUR CODE HERE
+df_antibiotics_pivot <- df_antibiotics %>% 
+  pivot_longer(
+    cols = ends_with("in"),
+    names_to = "antibiotic",
+    values_to = "MIC"
+  )
+df_antibiotics_pivot
+
+df_antibiotics_pivot %>%
+  ggplot(aes(bacteria, MIC, group = antibiotic, color = antibiotic)) +
+  geom_line() +
+  scale_y_log10() +
+  geom_point(aes(shape=gram)) +
+  theme(axis.text.x = element_text(angle = 90))
 ```
 
 #### Visual 2 (All variables)
@@ -84,7 +99,11 @@ In this visual you must show *all three* effectiveness values for *all 16 bacter
 Note that your visual must be *qualitatively different* from *all* of your other visuals.
 
 ```{r q1.2}
-# WRITE YOUR CODE HERE
+df_antibiotics_pivot %>%
+  ggplot(aes(antibiotic, bacteria, fill = MIC)) +
+  geom_tile() +
+  scale_fill_continuous(trans = "log10") +
+  geom_point(aes(x = antibiotic, y = bacteria, shape = gram))
 ```
 
 #### Visual 3 (Some variables)
@@ -94,7 +113,11 @@ In this visual you may show a *subset* of the variables (`penicillin`, `streptom
 Note that your visual must be *qualitatively different* from *all* of your other visuals.
 
 ```{r q1.3}
-# WRITE YOUR CODE HERE
+df_antibiotics_pivot %>%
+  ggplot(aes(bacteria, antibiotic, size = MIC)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90)) +
+  scale_size_continuous(trans = "log10")
 ```
 
 #### Visual 4 (Some variables)
@@ -104,7 +127,10 @@ In this visual you may show a *subset* of the variables (`penicillin`, `streptom
 Note that your visual must be *qualitatively different* from *all* of your other visuals.
 
 ```{r q1.4}
-# WRITE YOUR CODE HERE
+df_antibiotics_pivot %>%
+  ggplot(aes(antibiotic, MIC, color = bacteria, group = bacteria)) +
+  geom_point() +
+  scale_y_log10()
 ```
 
 #### Visual 5 (Some variables)
@@ -114,7 +140,11 @@ In this visual you may show a *subset* of the variables (`penicillin`, `streptom
 Note that your visual must be *qualitatively different* from *all* of your other visuals.
 
 ```{r q1.5}
-# WRITE YOUR CODE HERE
+df_antibiotics_pivot %>%
+  ggplot(aes(bacteria, MIC)) +
+  geom_boxplot() +
+  scale_y_log10() +
+  theme(axis.text.x = element_text(angle = 90))
 ```
 
 ### __q2__ Assess your visuals
@@ -131,11 +161,13 @@ There are **two questions** below; use your five visuals to help answer both Gui
 
 *Observations*
 - What is your response to the question above?
-  - (Write your response here)
+  - The antibiotic neomycin was effective against most bacteria genera, with it being extremely effective against staphylococcus genus. The antibiotic streptomycin had comparable effectiveness to neomycin, but is not very effective against any particular genus. Penicillin seems to target specific bacteria because it is extremely effective against Streptococcus genus, but does little to none to others such as Pseudomonas aeruginosa or Mycobacterium tuberculosis. It is also effective against Staphylococcus genus, Diplococcus pneumonia, and Bacillus anthracis. In general, it appears neomycin and streptomycin is most effective against positive gram bacteria, but is also effective against negative gram bacteria. Penicillin is only effective against positive gram bacteria.
+  
 - Which of your visuals above (1 through 5) is **most effective** at helping to answer this question?
-  - (Write your response here)
+  - Visual 2 was the most effective at helping answer this question.
+  
 - Why?
-  - (Write your response here)
+  - I found that it was the easiest to tell the MIC value for a given bacteria and antibiotic combination. Unlike visual 1 or 3, I could just correlate a darker color to being more effective and a lighter color to being less effective. It also shows the gram stain so it was easy to compare antibiotic effectiveness against bacteria and gram stain.
 
 #### Guiding Question 2
 
@@ -145,12 +177,13 @@ In 1974 *Diplococcus pneumoniae* was renamed *Streptococcus pneumoniae*, and in 
 
 *Observations*
 - What is your response to the question above?
-  - (Write your response here)
+  - Diplococcus pneumoniae was renamed to Streptococcus pneumoniae because its response to the three antibiotics is very similar to the two Streptococcus genus bacterium, which means that Diplococcus pneumoniae is most likely related to Strepococcus rather than Diplococcus. Like the bacteria in the Streptococcus genus, Diplococcus pneumoniae, penicillin is the most effective antibiotic, where most other bacteria do not respond to it at all. 
+  
 - Which of your visuals above (1 through 5) is **most effective** at helping to answer this question?
-  - (Write your response here)
+  - Visual 3 was the most effective at helping answer this question.
+  
 - Why?
-  - (Write your response here)
-
+  - Unlike visual 2, it is easier to recognize small differences in MIC values because the value is correlated to the size of a dot rather than a minute change in shading. It is a lot easier to compare the sizes of MIC values to other bacteria.
 
 # References
 <!-- -------------------------------------------------- -->
