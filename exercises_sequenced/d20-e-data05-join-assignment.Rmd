@@ -86,7 +86,7 @@ beatles_joined <-
 
 ```{r q2-task}
 df_q2 <-
-## TODO: Join beatles1 and beatles2 using beatles3 to match rows
+
 
 df_q2
 ```
