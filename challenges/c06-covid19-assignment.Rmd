@@ -38,7 +38,6 @@ All the deliverables stated in the rubrics above are due **at midnight** before 
 library(tidyverse)
 library(ggplot2)
 library(gganimate)
-library(tigris)
 ```
 
 *Background*: [COVID-19](https://en.wikipedia.org/wiki/Coronavirus_disease_2019) is the disease caused by the virus SARS-CoV-2. In 2020 it became a global pandemic, leading to huge loss of life and tremendous disruption to society. The New York Times (as of writing) publishes up-to-date data on the progression of the pandemic across the United States---we will study these data in this challenge.
@@ -81,7 +80,6 @@ That's the high-level view; now let's dig into the details.
 ```{r q1-task}
 ## TASK: Load the census bureau data with the following tibble name.
 df_pop <- read.csv("data/ACSDT5Y2018.B01003_2023-03-18T224644/ACSDT5Y2018.B01003-Data.csv", skip = 1)
-df_pop
 ```
 
 *Note*: You can find information on 1-year, 3-year, and 5-year estimates [here](https://www.census.gov/programs-surveys/acs/guidance/estimates.html). The punchline is that 5-year estimates are more reliable but less current.
@@ -141,7 +139,6 @@ To join these datasets, we'll need to use [FIPS county codes](https://en.wikiped
 df_q3 <- df_pop %>%
   select(everything()) %>%
   mutate(fips = str_sub(Geography, 10, 14))
-df_q3
 ```
 
 Use the following test to check your answer.
@@ -163,7 +160,6 @@ print("Very good!")
 ## TASK: Join df_covid and df_q3 by fips.
 df_q4 <- df_covid %>%
   left_join(df_q3, by = "fips")
-df_q4
 ```
 
 For convenience, I down-select some columns and produce more convenient column
@@ -182,7 +178,6 @@ df_data <-
     deaths,
     population = `Estimate..Total`
   )
-df_data
 ```
 
 # Analyze
@@ -201,7 +196,6 @@ df_normalized <- df_data %>%
   select(everything()) %>%
   mutate(cases_per100k = cases / population * 100000,
          deaths_per100k = deaths / population * 100000)
-df_normalized
 ```
 
 You may use the following test to check your work.
