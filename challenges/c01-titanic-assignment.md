@@ -153,6 +153,10 @@ there were 2,224 souls on board. The difference could be accounted by
 stowaways who managed to sneak onto the ship and so wouldn’t be
 officially recorded by the cruise liner. Another possibility is that the
 cruise liner could have accidentally made an error in their records.
+While on-boarding people, the crew checked tickets and wrote down the
+people the names of the people as they boarded. It is possible some got
+pass without getting checked in or the crew lost a page of their
+check-in sheet before it reached the admins.
 
 ### **q3** Create a plot showing the count of persons who *did* survive, along with aesthetics for `Class` and `Sex`. Document your observations below.
 
