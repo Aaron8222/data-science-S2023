@@ -1,7 +1,7 @@
 ---
 title: "Estimating Pi With a Shotgun"
-author: "(Your name here)"
-date: 2020-
+author: "Aaron Huang"
+date: 2023-3-26
 output:
   github_document:
     toc: true
@@ -101,15 +101,30 @@ Remember in `e-stat02-probability` we learned how to estimate probabilities as t
 
 ```{r q1-task}
 ## TASK: Choose a sample size and generate samples
-n <- NA_real_ # Choose a sample size
-df_q1 <- NA # Generate the data
+set.seed(101)
+n <- 10e4
+x <- runif(n)
+y <- runif(n)
+
+
+df_q1 <-
+  tibble(
+  x = runif(n),
+  y = runif(n)
+  ) %>%
+  mutate(in_circle = (x^2 + y^2 < 1)) %>%
+  summarize(n = n(), count_in_circle = sum(in_circle),
+            mean = mean(in_circle))
+df_q1
 ```
 
 ### __q2__ Using your data in `df_q1`, estimate $\pi$.
 
 ```{r q2-task}
 ## TASK: Estimate pi using your data from q1
-pi_est <- NA_real_
+pi_est <- df_q1 %>%
+  select(mean) %>%
+  {. * 4}
 pi_est
 ```
 
@@ -121,16 +136,27 @@ You now have an estimate of $\pi$, but how trustworthy is that estimate? In `e-s
 ### __q3__ Using a CLT approximation, produce a confidence interval for your estimate of $\pi$. Make sure you specify your confidence level. Does your interval include the true value of $\pi$? Was your chosen sample size sufficiently large so as to produce a trustworthy answer?
 
 ```{r q3-task}
+q99 <- qnorm(1 - (1 - 0.99) / 2)
+in_circle = (x^2 + y^2 < 1)
+
+
+lo <- mean(in_circle) - q99 * sd(in_circle) / sqrt(n)
+hi <- mean(in_circle) + q99 * sd(in_circle) / sqrt(n)
+tibble(CI_low = lo * 4, CI_high = hi * 4)
+
+
+
+
 ```
 
 **Observations**:
 
 - Does your interval include the true value of $\pi$?
-  - (Your response here)
+  - The interval does include the true value of $\pi$.
 - What confidence level did you choose?
-  - (Your response here)
+  - I chose a confidence level of 99%.
 - Was your sample size $n$ large enough? Why do you say that?
-  - (Your response here)
+  - My sample size is large enough because the range in the confidence interval is very small.
 
 # References
 <!-- -------------------------------------------------- -->
