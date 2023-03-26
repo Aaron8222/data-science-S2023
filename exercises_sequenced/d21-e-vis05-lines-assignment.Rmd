@@ -35,7 +35,7 @@ library(gapminder)
 ## TODO: Fix the following code
 gapminder %>%
   filter(continent == "Asia") %>%
-  ggplot(aes(year, lifeExp)) +
+  ggplot(aes(year, lifeExp, color = country)) +
   geom_line()
 ```
 
@@ -51,7 +51,9 @@ mpg %>%
 
 **Observations**:
 - What does a line plot assume about the data?
+A line plot assumes the underlying data have a function relationship.
 - How does the `mpg` dataset violate this assumption?
+The mpg dataset does not have a function relation between displ and hwy
 
 ### __q3__ The following graph shows both the raw data and a smoothed version. Describe the trends that you can see in the different curves.
 
@@ -66,8 +68,9 @@ economics %>%
 
 **Observations**:
 - What can you tell based on the `Raw` data?
+  With the raw data, you can tell the rise and fall over time.
 - What can you tell based on the `Smoothed` data?
-
+  With the smoothed data, you can tell trends easier.
 <!-- include-exit-ticket -->
 # Exit Ticket
 <!-- -------------------------------------------------- -->

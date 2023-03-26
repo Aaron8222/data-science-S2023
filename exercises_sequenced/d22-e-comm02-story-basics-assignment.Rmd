@@ -146,9 +146,11 @@ diamonds %>%
 
 **Classify**:
 AAA, ABT, or DHY?
+ABT
 
 **Justify**
 Write your justification here!
+At lower carats, a slight increase in carat leads to a decrease in price. However, at higher carats, an increase in carat leads to an increase in price.
 
 ### __q2__ Identify the point on the narrative spectrum, and justify your answer.
 
@@ -171,9 +173,11 @@ diamonds %>%
 
 **Classify**:
 AAA, ABT, or DHY?
+DHY
 
 **Justify**
 Write your justification here!
+Diamonds tend to be price ordered by their cut. However, at low carat, fair cuts tend to be the most pricey. Yet Good, Very Good and Premium diamonds tend to overlap.
 
 ### __q3__ Identify the point on the narrative spectrum, and justify your answer.
 
@@ -194,9 +198,11 @@ diamonds %>%
 
 **Classify**:
 AAA, ABT, or DHY?
+AAA
 
 **Justify**
 Write your justification here!
+There is a lot of information and is very hard to see any conflicts.
 
 ### __q4__ Turn in all your answers via google forms. [Link](https://forms.gle/kHuT5oufUQA7jRWG8)
 
