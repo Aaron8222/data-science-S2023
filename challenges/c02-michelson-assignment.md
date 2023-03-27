@@ -349,10 +349,11 @@ df_q2 %>%
 **Observations**: Similarities - The overall trend for both are very
 similar in that they are horizontal. Most of the data for both fit
 between the two dashed lines. Differences - There are differences in
-individual data points. On some days, the actual data may be clustered
-while the simulated data may not be and more spread out. For example, on
-June 23, the actual data is more together and closer to the mean (dotted
-line), while the simulated data a lot more.
+individual data points on a given day. On one day, the actual data may
+be clustered while the simulated data may not be and more spread out and
+vice versa. Looking at the data collected on June 23, the real data
+points are closer together and gather near the upper dotted line, while
+the simulated data points are spread out and range greatly.
 
 ### **q5** You have access to a few other variables. Construct a few visualizations of `VelocityVacuum` against these other factors. Are there other patterns in the data that might help explain the difference between Michelson’s estimate and `LIGHTSPEED_VACUUM`?
 
