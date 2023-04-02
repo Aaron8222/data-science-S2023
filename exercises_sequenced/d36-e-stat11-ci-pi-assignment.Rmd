@@ -64,8 +64,8 @@ ci_lwr <- mu - 1.96 * sd / sqrt(n)
 ci_upr <- mu + 1.96 * sd / sqrt(n)
 ## TODO: Use the equations above to compute a prediction interval for the
 ##       normal distribution rnorm(mean = mu, sd = sd)
-pi_lwr <- NA_real_
-pi_upr <- NA_real_
+pi_lwr <- mu - 1.96 * sd
+pi_upr <- mu + 1.96 * sd
 ```
 
 Use the following tests to check your work.
@@ -132,7 +132,19 @@ Take a quick look at the plot above, and make a prediction (to yourself) whether
 ```{r q2-task}
 ## TODO: Estimate CI and PI using the formulas from q1, use diamonds_train
 ##       and assign your estimates to columns ci_lwr, ci_upr, pi_lwr, pi_upr
-df_q2 <- NA
+df_q2 <-
+  diamonds_train %>%
+  summarize(
+    price_mean = mean(price),
+    price_sd = sd(price),
+    price_n = n()
+  ) %>%
+  mutate(
+   ci_lwr = price_mean - 1.96 * price_sd / sqrt(n),
+   ci_upr = price_mean + 1.96 * price_sd / sqrt(n),
+   pi_lwr = price_mean - 1.96 * price_sd,
+   pi_upr = price_mean + 1.96 * price_sd
+  )
 df_q2
 ```
 
@@ -171,6 +183,7 @@ df_q2 %>%
 ```{r q3-task}
 ## TODO: Devise a test to see if your CI and PI are correctly reflecting
 ##       the diamonds population; use diamonds_validation in your testing
+
 ```
 
 **Observations**:

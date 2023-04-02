@@ -43,6 +43,7 @@ mpg %>%
 **Observations**:
 
 - What are some issues with this graph?
+Ordering the y axis by alphabetical order has no meaning in this case. It is hard to compare mpg for each manufacturer.
 
 ### __q2__ What are some issues with the following graph? *Don't just say* "it's bad"---use concepts from the required reading.
 
@@ -57,6 +58,7 @@ as_tibble(mtcars) %>%
 ```
 
 - What are some issues with this graph?
+Area is pretty low on the visual hierarchy.
 
 ### __q3__ What are some issues with the following graph? *Don't just say* "it's bad"---use concepts from the required reading.
 
@@ -68,7 +70,7 @@ diamonds %>%
 ```
 
 - What are some issues with this graph?
-
+Stacked bar charts are lower on the visual hierarchy compared to a common scale.
 ### __q4__ What are some issues with the following graph? *Don't just say* "it's bad"---use concepts from the required reading.
 
 ```{r q4-vis}
@@ -81,6 +83,7 @@ diamonds %>%
 ```
 
 - What are some issues with this graph?
+Pie charts encode in angles and are lower on the visual hierarchy.
 
 <!-- include-exit-ticket -->
 # Exit Ticket

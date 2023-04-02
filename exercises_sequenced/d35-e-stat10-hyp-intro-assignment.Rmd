@@ -106,7 +106,14 @@ less than the threshold `price_threshold`.
 ```{r q1-task}
 ## TASK: Compute a confidence interval on the mean, use to answer the question
 ## above
-df_sample
+df_sample %>%
+  summarize(
+    price_mean = mean(price),
+    price_sd = sd(price),
+    price_lo = price_mean - 1.96 * price_sd / sqrt(n()),
+    price_hi = price_mean + 1.96 * price_sd / sqrt(n())
+  ) %>%
+  select(price_lo, price_hi)
 price_threshold
 ```
 
