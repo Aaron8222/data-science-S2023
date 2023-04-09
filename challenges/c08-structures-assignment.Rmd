@@ -80,7 +80,7 @@ df_samples %>%
 - What is the mean strength of the material, approximately?
   - The approximate mean strength of the material is about 40000.
 - To what extent can you tell what shape the distribution of the data has?
-  - There is a slight resemblance of a postively skewed distribution.
+  - It is a lognormal distribution.
 - Assuming the scopus is the strength of an individual part made from this aluminum alloy, is the observed variability real or induced?
   - The variability is real because you are measuring different individuals parts and will not have indentical properties.
 
@@ -300,8 +300,8 @@ df_samples %>%
 **Observations**:
 
 - Does the confidence interval above account for uncertainty arising from *Monte Carlo approximation* of the POF? Why or why not?
-  - No because the bootstrap method is different from the monte carlo method. Instead of generating random samples from a probabilty distribution, bootstrap works by resampling the available data.
+  - No because the bootstrap method is different from the monte carlo method. Instead of generating random samples from a probability distribution, bootstrap works by resampling the available data.
 - Does the confidence interval above account for uncertainty arising from *limited physical tests* (`df_samples`)? Why or why not?
   - The confidence interval does account for uncertainty from limited physical tests because it is resampling the available data and accounts for the variability in the available data.
 - Can you confidently conclude that `POF < 0.03`? Why or why not?
-  - We can confidently conclude that POF !< 0.03 because the upper confidence interval is 0.046, which is above this limit.
+  - We cannot confidently conclude that POF < 0.03 because the upper confidence interval is 0.046, which is above this limit.
