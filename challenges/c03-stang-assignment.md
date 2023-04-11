@@ -348,8 +348,9 @@ df_stang_long %>%
 - Does this graph support or contradict the claim above?
   - From this graph, it supports the claim that E is an intensive
     property. There is no clear trend between thickness and the value
-    of E. However, the E values for test pieces that have a thickness of
-    0.081 is significantly lower than the other three.
+    of E. The E values for the 0.081 thick test pieces are significantly
+    lower than the other three. However, that trend does not continue
+    through to the smaller-thickness pieces.
 
 # References
 
