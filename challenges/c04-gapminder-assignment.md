@@ -210,18 +210,19 @@ gapminder %>%
 gapminder %>%
   filter(year == year_min) %>%
   ggplot(aes(continent, gdpPercap)) +
-  geom_boxplot()
+  geom_boxplot() +
+  scale_y_log10()
 ```
 
 ![](c04-gapminder-assignment_files/figure-gfm/q2-task-2.png)<!-- -->
 
 **Observations**:
 
-- Write your observations here Asia and Europe has the highest GDP per
-  cap out of all the continents followed by America, Africa, and
-  Oceania. There are a few outliers in the Americas, Asia, and Europe.
-  There is one significant outlier in Asia that is greatly larger than
-  any other country.
+- Write your observations here Oceania has the highest median GDP per
+  cap, followed by Europe, Americas, Asia, and Africa. However, there
+  are individual countries in Europe, Asia, and the Americas who have
+  higher GDP per cap. Specifically, there is one country in Asia whose
+  GDP per cap is significantly higher than any other country.
 
 **Difficulties & Approaches**:
 
@@ -277,23 +278,23 @@ gapminder %>%
 
 ``` r
 gapminder %>%
-  filter(year == year_min & continent == "Americas") %>%
+  filter(year == year_max & continent == "Americas") %>%
   arrange(desc(gdpPercap))
 ```
 
     ## # A tibble: 25 × 6
-    ##    country       continent  year lifeExp       pop gdpPercap
-    ##    <fct>         <fct>     <int>   <dbl>     <int>     <dbl>
-    ##  1 United States Americas   1952    68.4 157553000    13990.
-    ##  2 Canada        Americas   1952    68.8  14785584    11367.
-    ##  3 Venezuela     Americas   1952    55.1   5439568     7690.
-    ##  4 Argentina     Americas   1952    62.5  17876956     5911.
-    ##  5 Uruguay       Americas   1952    66.1   2252965     5717.
-    ##  6 Cuba          Americas   1952    59.4   6007797     5587.
-    ##  7 Chile         Americas   1952    54.7   6377619     3940.
-    ##  8 Peru          Americas   1952    43.9   8025700     3759.
-    ##  9 Ecuador       Americas   1952    48.4   3548753     3522.
-    ## 10 Mexico        Americas   1952    50.8  30144317     3478.
+    ##    country             continent  year lifeExp       pop gdpPercap
+    ##    <fct>               <fct>     <int>   <dbl>     <int>     <dbl>
+    ##  1 United States       Americas   2007    78.2 301139947    42952.
+    ##  2 Canada              Americas   2007    80.7  33390141    36319.
+    ##  3 Puerto Rico         Americas   2007    78.7   3942491    19329.
+    ##  4 Trinidad and Tobago Americas   2007    69.8   1056608    18009.
+    ##  5 Chile               Americas   2007    78.6  16284741    13172.
+    ##  6 Argentina           Americas   2007    75.3  40301927    12779.
+    ##  7 Mexico              Americas   2007    76.2 108700891    11978.
+    ##  8 Venezuela           Americas   2007    73.7  26084662    11416.
+    ##  9 Uruguay             Americas   2007    76.4   3447496    10611.
+    ## 10 Panama              Americas   2007    75.5   3242173     9809.
     ## # … with 15 more rows
 
 **Observations**:
@@ -311,11 +312,10 @@ label:
 ``` r
 ## NOTE: No need to edit, use ideas from this in q4 below
 gapminder %>%
-  filter(year == max(year)) %>%
-
+  filter(year == year_max) %>%
   ggplot(aes(continent, lifeExp)) +
   geom_boxplot() +
-  geom_point(
+    geom_point(
     data = . %>% filter(country %in% c("United Kingdom", "Japan", "Zambia")),
     mapping = aes(color = country),
     size = 2
@@ -332,41 +332,29 @@ variables; think about using different aesthetics or facets.
 ``` r
 ## TASK: Create a visual of gdpPercap vs continent
 gapminder %>%
-  filter(year == year_min) %>%
+  filter(year == year_min | year == year_max) %>%
   ggplot(aes(continent, gdpPercap)) +
   geom_boxplot() +
   geom_point(
-    data = . %>% filter(country %in% c("Switzerland", "United States", "Kuwait")),
+    data = . %>% filter(country %in% c("Switzerland", "United States", "Kuwait", "Canada", "Haiti")),
     mapping = aes(color = country),
-    size = 2
-  )
+    size = 2) +
+  facet_grid(~year) +
+  scale_y_log10()
 ```
 
 ![](c04-gapminder-assignment_files/figure-gfm/q4-task-1.png)<!-- -->
 
-``` r
-gapminder %>%
-  filter(year == year_max) %>%
-  ggplot(aes(continent, gdpPercap)) +
-  geom_boxplot() +
-  geom_point(
-    data = . %>% filter(country %in% c("Switzerland", "United States", "Kuwait", "Ireland")),
-    mapping = aes(color = country),
-    size = 2
-  )
-```
-
-![](c04-gapminder-assignment_files/figure-gfm/q4-task-2.png)<!-- -->
-
 **Observations**:
 
-- Write your observations here In 1952, the top 3 outliers were the
-  United States, Switzerland, and Kuwait. Kuwait’s gdp is significantly
-  higher than other other country by almost 90000 gdp per cap. In 2007,
-  Kuwait and the United States remain as the highest gdp per cap in
-  their respective countries. However, Kuwait’s gdp has dropped
-  significantly. Switzerland’s gdp has increased but no longer has the
-  highest gdp.
+- Write your observations here In 1952, the top 4 outliers were the
+  United States, Canada, Switzerland, and Kuwait. Kuwait’s gdp per cap
+  was significantly higher than any other country. The gdp per cap for
+  the other outlier countries are closer in value. In contrast, in 2007,
+  Kuwait’s gdp per cap dropped significantly. Switzerland, Canada, and
+  the United States has increased in gdp per cap and has caught up with
+  Kuwait. Haiti appears to be a new outlier in the Americas in 2007 that
+  was not present in 1952.
 
 # Your Own EDA
 
@@ -393,11 +381,12 @@ gapminder %>%
 - (Your notes and observations here) Q: Does a larger gdp per capita
   lead to a longer life expectancy in 2007?
 
-Observations: There seems to be a positive correlation between the gdp
-per cap and the life expectancy. A clear upward trend can be seen in
-America, Europe, and Asia. However, the gdp per cap does not effect the
-life expectancy in Africa, suggesting there may be a confounding
-variable we don’t see yet.
+Observations: The plots for the Americas, Asia, and Europe all look
+quite flat with a slight upward trend, suggesting there is not a strong
+correlation between life expectancy and gdp per cap. The trendline for
+Africa almost appears vertical suggesting there is not correlation at
+all. Based on these graphs, it appears there is only a very slight
+positive correlation between life expectancy and gdp per cap, if any.
 
 ``` r
 ## TASK: Your second graph
@@ -440,7 +429,7 @@ gapminder_norm %>%
 - (Your notes and observations here) Q: Is there a correlation between
   the population of a country and the gdp per cap? Looking at the
   normalized population and gdp per cap for a few countries, there seems
-  to be a positive correlation between the population and gdp per cap.
-  Although an increase in population increases the gdp per cap, there
-  seems to be other factors that involved that is causing different the
-  different slopes in each country.
+  to be a positive correlation between the population and gdp per cap,
+  which might be suggestive of a causal relationship. The slope of this
+  correlation varies greatly depending on the country, which suggests
+  there may be other factors to better explain a country’s gdp per cap.
