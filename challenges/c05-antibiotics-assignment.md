@@ -1,7 +1,7 @@
 Antibiotics
 ================
 Aaron Huang
-2023-3-2
+2023-4-20
 
 *Purpose*: Creating effective data visualizations is an *iterative*
 process; very rarely will the first graph you make be the most
@@ -204,7 +204,8 @@ df_antibiotics_pivot %>%
   ggplot(aes(antibiotic, bacteria, fill = MIC)) +
   geom_tile() +
   scale_fill_continuous(trans = "log10") +
-  geom_point(aes(x = antibiotic, y = bacteria, shape = gram))
+  geom_point(aes(x = antibiotic, y = bacteria)) +
+  facet_grid(~gram)
 ```
 
 ![](c05-antibiotics-assignment_files/figure-gfm/q1.2-1.png)<!-- -->
@@ -220,10 +221,10 @@ your other visuals.
 
 ``` r
 df_antibiotics_pivot %>%
-  ggplot(aes(bacteria, antibiotic, size = MIC)) +
-  geom_point() +
-  theme(axis.text.x = element_text(angle = 90)) +
-  scale_size_continuous(trans = "log10")
+  ggplot(aes(x = "", y = MIC, fill = bacteria)) +
+    geom_bar(stat="identity", width=1) +
+    coord_polar("y", start=0) +
+    facet_grid(~antibiotic)
 ```
 
 ![](c05-antibiotics-assignment_files/figure-gfm/q1.3-1.png)<!-- -->
@@ -287,11 +288,10 @@ opportunity to think about why this is.**
 *Observations* - What is your response to the question above? - The
 antibiotic neomycin was effective against most bacteria genera, with it
 being extremely effective against staphylococcus genus. The antibiotic
-streptomycin had comparable effectiveness to neomycin, but is not very
-effective against any particular genus. Penicillin seems to target
-specific bacteria because it is extremely effective against
-Streptococcus genus, but does little to none to others such as
-Pseudomonas aeruginosa or Mycobacterium tuberculosis. It is also
+streptomycin is only effective against 4 of the bacteria strains.
+Penicillin seems to target specific bacteria because it is extremely
+effective against Streptococcus genus, but does little to none to others
+such as Pseudomonas aeruginosa or Mycobacterium tuberculosis. It is also
 effective against Staphylococcus genus, Diplococcus pneumonia, and
 Bacillus anthracis. In general, it appears neomycin and streptomycin is
 most effective against positive gram bacteria, but is also effective

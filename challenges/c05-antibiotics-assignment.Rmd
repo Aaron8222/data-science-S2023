@@ -1,7 +1,7 @@
 ---
 title: "Antibiotics"
 author: "Aaron Huang"
-date: 2023-3-2
+date: 2023-4-20
 output:
   github_document
 ---
@@ -103,7 +103,8 @@ df_antibiotics_pivot %>%
   ggplot(aes(antibiotic, bacteria, fill = MIC)) +
   geom_tile() +
   scale_fill_continuous(trans = "log10") +
-  geom_point(aes(x = antibiotic, y = bacteria, shape = gram))
+  geom_point(aes(x = antibiotic, y = bacteria)) +
+  facet_grid(~gram)
 ```
 
 #### Visual 3 (Some variables)
@@ -114,10 +115,10 @@ Note that your visual must be *qualitatively different* from *all* of your other
 
 ```{r q1.3}
 df_antibiotics_pivot %>%
-  ggplot(aes(bacteria, antibiotic, size = MIC)) +
-  geom_point() +
-  theme(axis.text.x = element_text(angle = 90)) +
-  scale_size_continuous(trans = "log10")
+  ggplot(aes(x = "", y = MIC, fill = bacteria)) +
+    geom_bar(stat="identity", width=1) +
+    coord_polar("y", start=0) +
+    facet_grid(~antibiotic)
 ```
 
 #### Visual 4 (Some variables)
@@ -161,7 +162,7 @@ There are **two questions** below; use your five visuals to help answer both Gui
 
 *Observations*
 - What is your response to the question above?
-  - The antibiotic neomycin was effective against most bacteria genera, with it being extremely effective against staphylococcus genus. The antibiotic streptomycin had comparable effectiveness to neomycin, but is not very effective against any particular genus. Penicillin seems to target specific bacteria because it is extremely effective against Streptococcus genus, but does little to none to others such as Pseudomonas aeruginosa or Mycobacterium tuberculosis. It is also effective against Staphylococcus genus, Diplococcus pneumonia, and Bacillus anthracis. In general, it appears neomycin and streptomycin is most effective against positive gram bacteria, but is also effective against negative gram bacteria. Penicillin is only effective against positive gram bacteria.
+  - The antibiotic neomycin was effective against most bacteria genera, with it being extremely effective against staphylococcus genus. The antibiotic streptomycin is only effective against 4 of the bacteria strains. Penicillin seems to target specific bacteria because it is extremely effective against Streptococcus genus, but does little to none to others such as Pseudomonas aeruginosa or Mycobacterium tuberculosis. It is also effective against Staphylococcus genus, Diplococcus pneumonia, and Bacillus anthracis. In general, it appears neomycin and streptomycin is most effective against positive gram bacteria, but is also effective against negative gram bacteria. Penicillin is only effective against positive gram bacteria.
   
 - Which of your visuals above (1 through 5) is **most effective** at helping to answer this question?
   - Visual 2 was the most effective at helping answer this question.
