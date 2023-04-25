@@ -1,7 +1,7 @@
 ---
 title: "COVID-19"
 author: "Aaron Huang"
-date: 2023-3-19
+date: 2023-4-25
 output:
   github_document:
     toc: true
@@ -293,26 +293,10 @@ The overall mean and standard deviation for covid cases per 100k are 1803 and 22
 - Fix the *geographic exceptions* noted below to study New York City.
 - Your own idea!
 
-**DO YOUR OWN ANALYSIS HERE**
-```{r q8-map-animation}
-## Currently not working
-#df_normalized2 <- df_normalized %>%
-#  filter(state == "Massachusetts") %>%
-#  select(date, county, cases_per100k) %>%
-#  rename(subregion = "county") %>%
-#  mutate(subregion = tolower(subregion))
-#df_normalized2
-
-#ma <- map_data("county", region = "massachusetts")
-#ma
-
-#ggplot(df_normalized2) +
-#  geom_map(aes(map_id = subregion, fill = cases_per100k), map = ma) +
-#  expand_limits(x = ma$long, y = ma$lat) +
-#  coord_map()
-
-```
 ```{r q8-plot}
+df_normalized %>%
+  filter(county == "Crowley")
+
 df_normalized %>%
   filter(county == "Crowley") %>%
   ggplot(aes(date, cases_per100k)) +
@@ -325,10 +309,11 @@ df_normalized %>%
   ylab("Covid Cases and Deaths per 100K") +
   labs() +
   theme(legend.title = element_text(face = "bold"), legend.position = "bottom")
-  
+
+
 ```
 Observations:
-Although Crowley county had one of the highest covid cases in the US, very few people actually died from it. The only exception was towards the end of the year where there was a sudden spike in covid cases followed by a spike in covid deaths. The sudden increase in cases and deaths may be contributed by people travelling for winter break and thanksgiving. The median age for this county was 38.8 years old in 2020, so there certainly was a decent amount of senior citizens living here. More research will be needed to find the cause of this large ratio of covid cases to deaths.
+Crowley county had the highest covid cases per 100k (>1k) during the peak of the pandemic in the US. The average deaths per 100k throughout the majority of pandemic was in the tens with the cases per 100k in the thousands. This would mean a mortality rate of about [1%](https://www.reuters.com/article/health-coronavirus-fatality/covid-19-fatality-rate-down-30-since-april-study-finds-idUKL1N2HY2E1), which tracks with the national rate at the height of the pandemic. The only exception was towards the end of the year where there was a sudden spike in covid cases followed by a spike in covid deaths. The sudden increase in cases and deaths may be contributed by people travelling for winter break and thanksgiving.
 
 ### Aside: Some visualization tricks
 <!-- ------------------------- -->

@@ -1,7 +1,7 @@
 COVID-19
 ================
 Aaron Huang
-2023-3-19
+2023-4-25
 
 - <a href="#grading-rubric" id="toc-grading-rubric">Grading Rubric</a>
   - <a href="#individual" id="toc-individual">Individual</a>
@@ -556,25 +556,26 @@ df_normalized %>%
 - Fix the *geographic exceptions* noted below to study New York City.
 - Your own idea!
 
-**DO YOUR OWN ANALYSIS HERE**
-
 ``` r
-## Currently not working
-#df_normalized2 <- df_normalized %>%
-#  filter(state == "Massachusetts") %>%
-#  select(date, county, cases_per100k) %>%
-#  rename(subregion = "county") %>%
-#  mutate(subregion = tolower(subregion))
-#df_normalized2
-
-#ma <- map_data("county", region = "massachusetts")
-#ma
-
-#ggplot(df_normalized2) +
-#  geom_map(aes(map_id = subregion, fill = cases_per100k), map = ma) +
-#  expand_limits(x = ma$long, y = ma$lat) +
-#  coord_map()
+df_normalized %>%
+  filter(county == "Crowley")
 ```
+
+    ## # A tibble: 288 × 9
+    ##    date       county  state    fips  cases deaths population cases_per…¹ death…²
+    ##    <date>     <chr>   <chr>    <chr> <dbl>  <dbl>      <int>       <dbl>   <dbl>
+    ##  1 2020-03-19 Crowley Colorado 08025     1      1       5630        17.8    17.8
+    ##  2 2020-03-20 Crowley Colorado 08025     1      1       5630        17.8    17.8
+    ##  3 2020-03-21 Crowley Colorado 08025     1      1       5630        17.8    17.8
+    ##  4 2020-03-22 Crowley Colorado 08025     1      1       5630        17.8    17.8
+    ##  5 2020-03-23 Crowley Colorado 08025     1      1       5630        17.8    17.8
+    ##  6 2020-03-24 Crowley Colorado 08025     1      1       5630        17.8    17.8
+    ##  7 2020-03-25 Crowley Colorado 08025     1      1       5630        17.8    17.8
+    ##  8 2020-03-26 Crowley Colorado 08025     1      1       5630        17.8    17.8
+    ##  9 2020-03-27 Crowley Colorado 08025     1      1       5630        17.8    17.8
+    ## 10 2020-03-28 Crowley Colorado 08025     1      1       5630        17.8    17.8
+    ## # … with 278 more rows, and abbreviated variable names ¹​cases_per100k,
+    ## #   ²​deaths_per100k
 
 ``` r
 df_normalized %>%
@@ -598,15 +599,16 @@ df_normalized %>%
     ## ℹ Please use the `scale_cut` argument of `label_number()` instead.
 
 ![](c06-covid19-assignment_files/figure-gfm/q8-plot-1.png)<!-- -->
-Observations: Although Crowley county had one of the highest covid cases
-in the US, very few people actually died from it. The only exception was
-towards the end of the year where there was a sudden spike in covid
-cases followed by a spike in covid deaths. The sudden increase in cases
-and deaths may be contributed by people travelling for winter break and
-thanksgiving. The median age for this county was 38.8 years old in 2020,
-so there certainly was a decent amount of senior citizens living here.
-More research will be needed to find the cause of this large ratio of
-covid cases to deaths.
+Observations: Crowley county had the highest covid cases per 100k (\>1k)
+during the peak of the pandemic in the US. The average deaths per 100k
+throughout the majority of pandemic was in the tens with the cases per
+100k in the thousands. This would mean a mortality rate of about
+[1%](https://www.reuters.com/article/health-coronavirus-fatality/covid-19-fatality-rate-down-30-since-april-study-finds-idUKL1N2HY2E1),
+which tracks with the national rate at the height of the pandemic. The
+only exception was towards the end of the year where there was a sudden
+spike in covid cases followed by a spike in covid deaths. The sudden
+increase in cases and deaths may be contributed by people travelling for
+winter break and thanksgiving.
 
 ### Aside: Some visualization tricks
 
