@@ -1,7 +1,7 @@
 Estimating Pi With a Shotgun
 ================
 Aaron Huang
-2023-3-26
+2023-4-25
 
 - <a href="#grading-rubric" id="toc-grading-rubric">Grading Rubric</a>
   - <a href="#individual" id="toc-individual">Individual</a>
@@ -218,14 +218,9 @@ df_q1
 
 ``` r
 ## TASK: Estimate pi using your data from q1
-pi_est <- df_q1 %>%
-  select(mean) %>%
-  {. * 4}
-pi_est
+df_q2 <- df_q1 %>%
+  mutate(stat = mean * 4)
 ```
-
-    ##      mean
-    ## 1 3.14396
 
 # Quantifying Uncertainty
 
@@ -239,26 +234,26 @@ to assess your $\pi$ estimate.
 ### **q3** Using a CLT approximation, produce a confidence interval for your estimate of $\pi$. Make sure you specify your confidence level. Does your interval include the true value of $\pi$? Was your chosen sample size sufficiently large so as to produce a trustworthy answer?
 
 ``` r
-q99 <- qnorm(1 - (1 - 0.99) / 2)
+q95 <- qnorm(1 - (1 - 0.95) / 2)
 in_circle = (x^2 + y^2 < 1)
 
 
-lo <- mean(in_circle) - q99 * sd(in_circle) / sqrt(n)
-hi <- mean(in_circle) + q99 * sd(in_circle) / sqrt(n)
-tibble(CI_low = lo * 4, CI_high = hi * 4)
+lo <- df_q2$stat - q95 * sd(in_circle) / sqrt(n)
+hi <- df_q2$stat + q95 * sd(in_circle) / sqrt(n)
+tibble(CI_low = lo, CI_high = hi)
 ```
 
     ## # A tibble: 1 × 2
     ##   CI_low CI_high
     ##    <dbl>   <dbl>
-    ## 1   3.13    3.16
+    ## 1   3.14    3.15
 
 **Observations**:
 
 - Does your interval include the true value of $\pi$?
   - The interval does include the true value of $\pi$.
 - What confidence level did you choose?
-  - I chose a confidence level of 99%.
+  - I chose a confidence level of 95%.
 - Was your sample size $n$ large enough? Why do you say that?
   - My sample size is large enough because the range in the confidence
     interval is very small.
