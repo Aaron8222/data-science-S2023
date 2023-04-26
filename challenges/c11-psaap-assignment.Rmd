@@ -349,27 +349,27 @@ pr_level <- 0.8
 #        make a recommendation on a *dependable range* of values for T_norm
 #        at the point `df_design`
 fit_q6 <- df_train %>% 
-lm(formula = T_norm ~ x + L + W + U_0)#+ T_f + rho_f + mu_f + C_fp + d_p + I_0)
+lm(formula = T_norm ~ x + L + W + U_0)
 
-df_intervals <-
-  df_train %>%
-  add_uncertainties(fit_q6, interval = "prediction", prefix = "pi", level = pr_level)
+rsquare(fit_q6, df_train)
+rsquare(fit_q6, df_validate)
 
-df_intervals
+pred <- predict(fit_q6, newdata = df_design, interval = "prediction", level = pr_level)
+pred
 ```
 
 **Recommendation**:
 
 - How much do you trust your model? Why?
-  - (Your response here)
+  - I do not trust this model a lot because the r-square is very low for df_train and df_validate.
 - What kind of interval---confidence or prediction---would you use for this task, and why?
-  - (Your response here)
+  - You want to use a prediction interval because you want to capture new observations and not mean trends. You want to predict the range of possible T_norm values.
 - What fraction of validation cases lie within the interval you predict? How does this compare with `pr_level`?
   - (Your response here)
 - What interval for `T_norm` would you recommend the design team to plan around?
-  - (Your response here)
+  - The T_norm ranges from 1.46 and 2.30.
 - Are there any other recommendations you would provide?
-  - (Your response here)
+  - Considering the r-square is so low, other variables should also be tightly controlled by the design team.
 
 *Bonus*: One way you could take this analysis further is to recommend which other variables the design team should tightly control. You could do this by fixing values in `df_design` and adding them to the model. An exercise you could carry out would be to systematically test the variables to see which ones the design team should more tightly control.
 
