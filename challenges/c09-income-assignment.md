@@ -1,7 +1,7 @@
 US Income
 ================
 Aaron Huang
-2023-04-8
+2023-04-26
 
 - <a href="#grading-rubric" id="toc-grading-rubric">Grading Rubric</a>
   - <a href="#individual" id="toc-individual">Individual</a>
@@ -494,12 +494,7 @@ compare population with income.
 
 ``` r
 ## TODO: Join df_q4 and df_pop by the appropriate column
-df_data = left_join(df_q4, df_pop)
-```
-
-    ## Joining, by = "Geography"
-
-``` r
+df_data = left_join(df_q4, df_pop, by = "Geography")
 df_data
 ```
 
@@ -567,8 +562,6 @@ df_data %>%
 - Document your observations here.
   - Median income values for 6-person families tend to have the widest
     confidence intervals.
-  - There doesn’t seem to be any clear trend in median income, family
-    size, or county.
   - Nantucket and Dukes county have wide confidence intervals for all
     family sizes.
   - 3 and above family sizes tend to be close together while 2 person
@@ -614,8 +607,12 @@ df_data %>%
 - What *overall* trend do you see between `SE` and population? Why might
   this trend exist?
   - It appears that the SE decreases as you increase the population.
-    This is because there is more data to work with and error becomes
-    lower.
+    Although it seems like SE decreases with higher population, it is
+    important to note that the standard error depends on the sample size
+    and not the population size. A population size does not directly
+    correlate to a larger sample size, but if the census buareau
+    collects a percentage of the population, then a larger population
+    would mean a larger sample size and thus a lower standard error.
 - What does this *overall* trend tell you about the relative ease of
   studying small vs large counties?
   - When studying a large county, you do not need to be as concerned
