@@ -1,7 +1,7 @@
 Structural Safety
 ================
 Aaron Huang
-2023-3-27
+2023-4-26
 
 - <a href="#grading-rubric" id="toc-grading-rubric">Grading Rubric</a>
   - <a href="#individual" id="toc-individual">Individual</a>
@@ -198,7 +198,7 @@ df_samples %>%
   - The approximate mean strength of the material is about 40000.
 - To what extent can you tell what shape the distribution of the data
   has?
-  - There is a slight resemblance of a postively skewed distribution.
+  - It is a lognormal distribution.
 - Assuming the scopus is the strength of an individual part made from
   this aluminum alloy, is the observed variability real or induced?
   - The variability is real because you are measuring different
@@ -277,9 +277,7 @@ q2
     small.
 - Can you confidently conclude that `POF < 0.03`? Why or why not.
   - I can’t confidently conclude that POF \< 0.03 because again the
-    sample size is so small and since there is real uncertainty, it is
-    not valid to simply estimate the probability as the mean of an
-    indicator.
+    sample size is so small.
 
 ## Material property model
 
@@ -348,7 +346,7 @@ df_norm_sim <-
 
     ## Rows: 1,000
     ## Columns: 1
-    ## $ strength <dbl> 40132.99, 39324.04, 39709.27, 40008.87, 39500.73, 40868.70, 3…
+    ## $ strength <dbl> 39680.25, 40035.85, 40061.04, 39964.07, 39849.88, 39894.76, 4…
 
 ``` r
 ## TODO 3: Compute structural response
@@ -370,17 +368,16 @@ df_norm_pof
 ```
 
     ## # A tibble: 1 × 3
-    ##    pof_lo pof_est pof_hi
-    ##     <dbl>   <dbl>  <dbl>
-    ## 1 0.00976   0.018 0.0262
+    ##   pof_lo pof_est pof_hi
+    ##    <dbl>   <dbl>  <dbl>
+    ## 1 0.0113    0.02 0.0287
 
 - Assuming your scopus is the probability of failure `POF` defined
   above, does your estimate exhibit real variability, induced
   variability, or both?
-  - Our scopus has real and induced variability. The real variability
-    comes from the fact that each specimen is different (cracks,
-    defects, etc) and the induced variability comes from the limited
-    sample size.
+  - Our scopus has induced variability and come from the fact that the
+    sample size is small. There is no real variability the distribution
+    of strength is not changing.
 - Does this confidence interval imply that `POF < 0.03`?
   - The confidence interval implies that it is 95% confidence the POF
     will fall within the lower and upper bounds, and is not absolute.
@@ -395,11 +392,11 @@ df_norm_pof
     error of the data.
 - Does the confidence interval above account for uncertainty arising
   from *limited physical tests* (`df_samples`)? Why or why not?
-  - The confidence interval does account for the uncertainty arising
-    from limited physical tests to an extent. You are reducing induced
-    variability by increasing the samples, however, random sampling
-    alone cannot elimate induced variability completely as there may be
-    sources of bias or error in the data collected.
+  - The confidence interval does not account for the uncertainty arising
+    from limited physical tests because the standard error you compute
+    is based on the sample size generated from the monte carlo method
+    (In this case, it’s 1000) and therefore does not account for the
+    number of physical tests.
 - What could you do to tighten up the confidence interval?
   - You can tighten up the confidence interval by collecting more
     physical sample tests.
@@ -483,7 +480,7 @@ df_samples %>% estimate_pof()
     from the limited set of test samples.
 - With the scopus as the `POF`, would uncertainty due to *limited
   physical tests* be induced or real?
-  - The uncertainty is real due to the limited physical tests.
+  - The uncertainty is induced.
 
 ## Quantifying sampling uncertainty
 
@@ -524,7 +521,7 @@ df_samples %>%
 - Does the confidence interval above account for uncertainty arising
   from *Monte Carlo approximation* of the POF? Why or why not?
   - No because the bootstrap method is different from the monte carlo
-    method. Instead of generating random samples from a probabilty
+    method. Instead of generating random samples from a probability
     distribution, bootstrap works by resampling the available data.
 - Does the confidence interval above account for uncertainty arising
   from *limited physical tests* (`df_samples`)? Why or why not?
@@ -532,5 +529,6 @@ df_samples %>%
     physical tests because it is resampling the available data and
     accounts for the variability in the available data.
 - Can you confidently conclude that `POF < 0.03`? Why or why not?
-  - We can confidently conclude that POF !\< 0.03 because the upper
-    confidence interval is 0.046, which is above this limit.
+  - We cannot confidently conclude that POF \< 0.03 because because
+    based on the confidence interval, the POF could be in the range of
+    0.00138 to 0.0458, which is below and above this threshold.

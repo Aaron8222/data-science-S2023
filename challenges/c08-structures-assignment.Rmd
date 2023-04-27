@@ -1,7 +1,7 @@
 ---
 title: "Structural Safety"
 author: "Aaron Huang"
-date: 2023-3-27
+date: 2023-4-26
 output:
   github_document:
     toc: true
@@ -136,7 +136,7 @@ q2
 - Is this estimate of the probability of failure trustworthy? Why or why not?
   - This estimate is not trustworthy because the sample size is so small. 
 - Can you confidently conclude that `POF < 0.03`? Why or why not.
-  - I can't confidently conclude that POF < 0.03 because again the sample size is so small and since there is real uncertainty, it is not valid to simply estimate the probability as the mean of an indicator.
+  - I can't confidently conclude that POF < 0.03 because again the sample size is so small.
 
 ## Material property model
 <!-- --------------------------------------- -->
@@ -204,7 +204,7 @@ df_norm_pof
 ```
 
 - Assuming your scopus is the probability of failure `POF` defined above, does your estimate exhibit real variability, induced variability, or both?
-  - Our scopus has real and induced variability. The real variability comes from the fact that each specimen is different (cracks, defects, etc) and the induced variability comes from the limited sample size. 
+  - Our scopus has induced variability and come from the fact that the sample size is small. There is no real variability the distribution of strength is not changing.
 - Does this confidence interval imply that `POF < 0.03`?
   - The confidence interval implies that it is 95% confidence the POF will fall within the lower and upper bounds, and is not absolute.
 - Compare this probability with your estimate from q2; is it more or less trustworthy?
@@ -212,7 +212,7 @@ df_norm_pof
 - Does the confidence interval above account for uncertainty arising from the *Monte Carlo approximation*? Why or why not?
   - The confidence interval does account for uncertainty arising from the monte carlo approximation because it is based on the standard error of the data.
 - Does the confidence interval above account for uncertainty arising from *limited physical tests* (`df_samples`)? Why or why not?
-  - The confidence interval does account for the uncertainty arising from limited physical tests to an extent. You are reducing induced variability by increasing the samples, however, random sampling alone cannot elimate induced variability completely as there may be sources of bias or error in the data collected.
+  - The confidence interval does not account for the uncertainty arising from limited physical tests because the standard error you compute is based on the sample size generated from the monte carlo method (In this case, it's 1000) and therefore does not account for the number of physical tests.
 - What could you do to tighten up the confidence interval?
   - You can tighten up the confidence interval by collecting more physical sample tests.
 - Can you *confidently* conclude that `POF < 0.03`? Why or why not?
@@ -273,7 +273,7 @@ df_samples %>% estimate_pof()
 - Does this estimate have any uncertainty due to *limited physical tests*? Why or why not?
   - Yes because CDF depends on the mean log and strength log calculated from the limited set of test samples.
 - With the scopus as the `POF`, would uncertainty due to *limited physical tests* be induced or real?
-  - The uncertainty is real due to the limited physical tests.
+  - The uncertainty is induced.
 
 ## Quantifying sampling uncertainty
 <!-- --------------------------------------- -->
@@ -304,4 +304,4 @@ df_samples %>%
 - Does the confidence interval above account for uncertainty arising from *limited physical tests* (`df_samples`)? Why or why not?
   - The confidence interval does account for uncertainty from limited physical tests because it is resampling the available data and accounts for the variability in the available data.
 - Can you confidently conclude that `POF < 0.03`? Why or why not?
-  - We cannot confidently conclude that POF < 0.03 because the upper confidence interval is 0.046, which is above this limit.
+  - We cannot confidently conclude that POF < 0.03 because because based on the confidence interval, the POF could be in the range of 0.00138 to 0.0458, which is below and above this threshold.
