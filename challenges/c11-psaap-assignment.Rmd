@@ -118,11 +118,10 @@ The primary output of interest is `T_norm = (avg_T - T_f) / T_f`, the normalized
 ##       each identified by different values of idx
 
 df_psaap %>%
-  filter(idx <= 6) %>%
-  ggplot(aes(x = x, y = T_norm, color = factor(idx), shape = factor(idx))) +
-    geom_point() +
+  ggplot(aes(x = x, y = T_norm, group = idx, color = idx)) +
+    geom_line() +
     labs(title = "T_norm vs. x for different idx values",
-         x = "x", y = "T_norm", color = "idx", shape = "idx")
+         x = "x", y = "T_norm", color = "idx")
 
 ```
 
