@@ -1,7 +1,7 @@
 Estimating Pi With a Shotgun
 ================
 Aaron Huang
-2023-4-25
+2023-5-4
 
 - <a href="#grading-rubric" id="toc-grading-rubric">Grading Rubric</a>
   - <a href="#individual" id="toc-individual">Individual</a>
@@ -194,33 +194,39 @@ set will estimate the probability of points landing in that area (see
 ## TASK: Choose a sample size and generate samples
 set.seed(101)
 n <- 10e4
-x <- runif(n)
-y <- runif(n)
+x = runif(n)
+y = runif(n)
 
 
 df_q1 <-
   tibble(
-  x = runif(n),
-  y = runif(n)
+  x,
+  y
   ) %>%
   mutate(in_circle = (x^2 + y^2 < 1)) %>%
-  summarize(n = n(), count_in_circle = sum(in_circle),
-            mean = mean(in_circle))
+  summarize(n = n(), count_in_circle = sum(in_circle))
+ 
 df_q1
 ```
 
-    ## # A tibble: 1 × 3
-    ##        n count_in_circle  mean
-    ##    <int>           <int> <dbl>
-    ## 1 100000           78599 0.786
+    ## # A tibble: 1 × 2
+    ##        n count_in_circle
+    ##    <int>           <int>
+    ## 1 100000           78641
 
 ### **q2** Using your data in `df_q1`, estimate $\pi$.
 
 ``` r
 ## TASK: Estimate pi using your data from q1
 df_q2 <- df_q1 %>%
-  mutate(stat = mean * 4)
+  mutate(stat = 4 * count_in_circle / n)
+df_q2
 ```
+
+    ## # A tibble: 1 × 3
+    ##        n count_in_circle  stat
+    ##    <int>           <int> <dbl>
+    ## 1 100000           78641  3.15
 
 # Quantifying Uncertainty
 
