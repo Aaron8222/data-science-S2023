@@ -1,7 +1,7 @@
 ---
 title: "Massachusetts Highway Stops"
 author: "Aaron Huang"
-date: 2023-5-3
+date: 2023-5-5
 output:
   github_document:
     toc: true
@@ -208,9 +208,9 @@ fit_q6 %>% tidy()
 **Observations**:
 
 - Which `subject_race` levels are included in fitting the model?
-  - Hispanic and white are included in the fitting the model.
+  - Hispanic, white, and black are included in the fitting the model.
 - Which `subject_race` levels have terms in the model?
-  - The estimated coefficients for Hispanic and white are 0.513 and -0.380, which suggests individuals who are classified as Hisplanic are more likely to get arrested and individuals are are classified as white are associated with lower arrest rates.
+  - The estimated coefficients for Hispanic and white are 0.513 and -0.380, which suggests individuals who are classified as Hispanic are more likely to get arrested and individuals are are classified as white are associated with lower arrest rates.
 
 You should find that each factor in the model has a level *missing* in its set of terms. This is because R represents factors against a *reference level*: The model treats one factor level as "default", and each factor model term represents a change from that "default" behavior. For instance, the model above treats `subject_sex==male` as the reference level, so the `subject_sexfemale` term represents the *change in probability* of arrest due to a person being female (rather than male).
 
@@ -274,7 +274,7 @@ fit_q8 %>% tidy()
 **Observations**:
 
 - How does controlling for found contraband affect the `subject_race` terms in the model?
-  - When controlling found contraband, the subject_race coefficients decreased for black and hispanic races. However, the fitted model still suggests individuals who are Hispanic have a higher probability of getting arrested.
+  - When controlling found contraband, the subject_race coefficients decreased for black and hispanic races. However, the fitted model still suggests individuals who are Hispanic have a higher probability of getting arrested. On base value, the model suggests that being black have a slightly lower chance of being arrested compared to a white individual, but, it is important to note the relatively high standard error for the estimated coefficient for raceblack. Computing a confidence interval results in the lower and upper values to be -0.122 and 0.0168 with a 99% confidence. The coefficient value for raceblack certainty lowered when controlling for contraband, however, we cannot definitively say if individuals who are black are more or less likely to be arrested compared to white individuals.
 - What does the *finding of contraband* tell us about the stop? What does it *not* tell us about the stop?
   - The finding of contraband suggests the driver may be doing something illegal which may lead to an increased rate of arrest. However, it does not necessarily mean the initial stop was valid or due to racial profiling or bias.
 

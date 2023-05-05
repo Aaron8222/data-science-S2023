@@ -1,7 +1,7 @@
 Massachusetts Highway Stops
 ================
 Aaron Huang
-2023-5-3
+2023-5-5
 
 - <a href="#grading-rubric" id="toc-grading-rubric">Grading Rubric</a>
   - <a href="#individual" id="toc-individual">Individual</a>
@@ -496,10 +496,10 @@ fit_q6 %>% tidy()
 **Observations**:
 
 - Which `subject_race` levels are included in fitting the model?
-  - Hispanic and white are included in the fitting the model.
+  - Hispanic, white, and black are included in the fitting the model.
 - Which `subject_race` levels have terms in the model?
   - The estimated coefficients for Hispanic and white are 0.513 and
-    -0.380, which suggests individuals who are classified as Hisplanic
+    -0.380, which suggests individuals who are classified as Hispanic
     are more likely to get arrested and individuals are are classified
     as white are associated with lower arrest rates.
 
@@ -624,7 +624,16 @@ fit_q8 %>% tidy()
   - When controlling found contraband, the subject_race coefficients
     decreased for black and hispanic races. However, the fitted model
     still suggests individuals who are Hispanic have a higher
-    probability of getting arrested.
+    probability of getting arrested. On base value, the model suggests
+    that being black have a slightly lower chance of being arrested
+    compared to a white individual, but, it is important to note the
+    relatively high standard error for the estimated coefficient for
+    raceblack. Computing a confidence interval results in the lower and
+    upper values to be -0.122 and 0.0168 with a 99% confidence. The
+    coefficient value for raceblack certainty lowered when controlling
+    for contraband, however, we cannot definitively say if individuals
+    who are black are more or less likely to be arrested compared to
+    white individuals.
 - What does the *finding of contraband* tell us about the stop? What
   does it *not* tell us about the stop?
   - The finding of contraband suggests the driver may be doing something
