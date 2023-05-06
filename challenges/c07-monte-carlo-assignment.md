@@ -1,7 +1,7 @@
 Estimating Pi With a Shotgun
 ================
 Aaron Huang
-2023-5-4
+2023-5-6
 
 - <a href="#grading-rubric" id="toc-grading-rubric">Grading Rubric</a>
   - <a href="#individual" id="toc-individual">Individual</a>
@@ -203,23 +203,32 @@ df_q1 <-
   x,
   y
   ) %>%
-  mutate(in_circle = (x^2 + y^2 < 1)) %>%
-  summarize(n = n(), count_in_circle = sum(in_circle))
+  mutate(in_circle = (x^2 + y^2 < 1))
  
 df_q1
 ```
 
-    ## # A tibble: 1 × 2
-    ##        n count_in_circle
-    ##    <int>           <int>
-    ## 1 100000           78641
+    ## # A tibble: 100,000 × 3
+    ##         x     y in_circle
+    ##     <dbl> <dbl> <lgl>    
+    ##  1 0.372  0.653 TRUE     
+    ##  2 0.0438 0.393 TRUE     
+    ##  3 0.710  0.272 TRUE     
+    ##  4 0.658  0.530 TRUE     
+    ##  5 0.250  0.222 TRUE     
+    ##  6 0.300  0.794 TRUE     
+    ##  7 0.585  0.853 FALSE    
+    ##  8 0.333  0.745 TRUE     
+    ##  9 0.622  0.675 TRUE     
+    ## 10 0.546  0.859 FALSE    
+    ## # … with 99,990 more rows
 
 ### **q2** Using your data in `df_q1`, estimate $\pi$.
 
 ``` r
 ## TASK: Estimate pi using your data from q1
 df_q2 <- df_q1 %>%
-  mutate(stat = 4 * count_in_circle / n)
+  summarize(n = n(), count_in_circle = sum(in_circle), stat = 4 * count_in_circle / n)
 df_q2
 ```
 
@@ -241,18 +250,19 @@ to assess your $\pi$ estimate.
 
 ``` r
 q95 <- qnorm(1 - (1 - 0.95) / 2)
-in_circle = (x^2 + y^2 < 1)
 
+sd = 4 * sd(df_q1$in_circle)
+se = sd / sqrt(n)
 
-lo <- df_q2$stat - q95 * sd(in_circle) / sqrt(n)
-hi <- df_q2$stat + q95 * sd(in_circle) / sqrt(n)
+lo <- df_q2$stat - q95 * se
+hi <- df_q2$stat + q95 * se
 tibble(CI_low = lo, CI_high = hi)
 ```
 
     ## # A tibble: 1 × 2
     ##   CI_low CI_high
     ##    <dbl>   <dbl>
-    ## 1   3.14    3.15
+    ## 1   3.14    3.16
 
 **Observations**:
 

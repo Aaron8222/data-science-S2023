@@ -1,7 +1,7 @@
 ---
 title: "Estimating Pi With a Shotgun"
 author: "Aaron Huang"
-date: 2023-5-4
+date: 2023-5-6
 output:
   github_document:
     toc: true
@@ -112,8 +112,7 @@ df_q1 <-
   x,
   y
   ) %>%
-  mutate(in_circle = (x^2 + y^2 < 1)) %>%
-  summarize(n = n(), count_in_circle = sum(in_circle))
+  mutate(in_circle = (x^2 + y^2 < 1))
  
 df_q1
 ```
@@ -123,7 +122,7 @@ df_q1
 ```{r q2-task}
 ## TASK: Estimate pi using your data from q1
 df_q2 <- df_q1 %>%
-  mutate(stat = 4 * count_in_circle / n)
+  summarize(n = n(), count_in_circle = sum(in_circle), stat = 4 * count_in_circle / n)
 df_q2
 ```
 
@@ -136,10 +135,12 @@ You now have an estimate of $\pi$, but how trustworthy is that estimate? In `e-s
 
 ```{r q3-task}
 q95 <- qnorm(1 - (1 - 0.95) / 2)
-in_circle = (x^2 + y^2 < 1)
 
-lo <- df_q2$stat - q95 * df_q2$stat / sqrt(n)
-hi <- df_q2$stat + q95 * df_q2$stat / sqrt(n)
+sd = 4 * sd(df_q1$in_circle)
+se = sd / sqrt(n)
+
+lo <- df_q2$stat - q95 * se
+hi <- df_q2$stat + q95 * se
 tibble(CI_low = lo, CI_high = hi)
 
 ```
