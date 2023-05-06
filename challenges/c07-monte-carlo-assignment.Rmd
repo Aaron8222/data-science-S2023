@@ -138,9 +138,8 @@ You now have an estimate of $\pi$, but how trustworthy is that estimate? In `e-s
 q95 <- qnorm(1 - (1 - 0.95) / 2)
 in_circle = (x^2 + y^2 < 1)
 
-
-lo <- df_q2$stat - q95 * sd(in_circle) / sqrt(n)
-hi <- df_q2$stat + q95 * sd(in_circle) / sqrt(n)
+lo <- df_q2$stat - q95 * df_q2$stat / sqrt(n)
+hi <- df_q2$stat + q95 * df_q2$stat / sqrt(n)
 tibble(CI_low = lo, CI_high = hi)
 
 ```
