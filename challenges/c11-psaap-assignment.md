@@ -1,7 +1,7 @@
 Regression Case Study: PSAAP II
 ================
 Aaron Huang
-2023-4-24
+2023-5-6
 
 - <a href="#grading-rubric" id="toc-grading-rubric">Grading Rubric</a>
   - <a href="#individual" id="toc-individual">Individual</a>
@@ -318,11 +318,8 @@ of fluid, for different experimental settings (e.g. different dimensions
 ##       each identified by different values of idx
 
 df_psaap %>%
-  filter(idx <= 6) %>%
-  ggplot(aes(x = x, y = T_norm, color = factor(idx), shape = factor(idx))) +
-    geom_point() +
-    labs(title = "T_norm vs. x for different idx values",
-         x = "x", y = "T_norm", color = "idx", shape = "idx")
+  ggplot(aes(x = x, y = T_norm, group = idx, color = idx)) +
+    geom_line()
 ```
 
 ![](c11-psaap-assignment_files/figure-gfm/q2-task-1.png)<!-- -->
@@ -427,7 +424,14 @@ rsquare(fit_q4, df_validate)
 
 **Observations**:
 
-- (Use this space to document which predictors seem useful.)
+- (Use this space to document which predictors seem useful.) It seems
+  the channel dimension parameters (x, L, W) are useful predictors of
+  T_norm. The initial state of the system such as bulk velocity, inlet
+  temp, and radiation intensity (U_0, T_f, I_0) seem to be useful
+  predictors as well. Finally, the properties of the fluid, such as the
+  density, viscosity, heat capacity, particle diameter (rho_f, mu_f,
+  C_fp, d_p) also seem to be important in predicting T_norm
+
 - *Note*: You don’t just have to fiddle with `formula`! Remember that
   you have a whole toolkit of *EDA* tools The useful predictors that
   seem to be useful are either related to the dimensions of of the
@@ -661,6 +665,16 @@ rsquare(fit_q6, df_validate)
     ## [1] 0.6759518
 
 ``` r
+df_fraction_within <- df_validate %>% 
+  add_uncertainties(fit_q6, interval = "prediction", prefix = "pi") %>% 
+  summarize(num_within = T_norm >= pi_lwr & T_norm <= pi_upr) %>%
+  sum() / nrow(df_validate)
+df_fraction_within
+```
+
+    ## [1] 0.9833333
+
+``` r
 pred <- predict(fit_q6, newdata = df_design, interval = "prediction", level = pr_level)
 pred
 ```
@@ -680,7 +694,9 @@ pred
     of possible T_norm values.
 - What fraction of validation cases lie within the interval you predict?
   How does this compare with `pr_level`?
-  - (Your response here)
+  - The fraction of validation cases that lie within the interval the
+    model predicted was 0.983. This is higher than the specified
+    pr_level of 0.8.
 - What interval for `T_norm` would you recommend the design team to plan
   around?
   - The T_norm ranges from 1.46 and 2.30.

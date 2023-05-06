@@ -1,7 +1,7 @@
 ---
 title: "Regression Case Study: PSAAP II"
 author: "Aaron Huang"
-date: 2023-4-24
+date: 2023-5-6
 output:
   github_document:
     toc: true
@@ -353,6 +353,12 @@ lm(formula = T_norm ~ x + L + W + U_0)
 rsquare(fit_q6, df_train)
 rsquare(fit_q6, df_validate)
 
+df_fraction_within <- df_validate %>% 
+  add_uncertainties(fit_q6, interval = "prediction", prefix = "pi") %>% 
+  summarize(num_within = T_norm >= pi_lwr & T_norm <= pi_upr) %>%
+  sum() / nrow(df_validate)
+df_fraction_within
+
 pred <- predict(fit_q6, newdata = df_design, interval = "prediction", level = pr_level)
 pred
 ```
@@ -364,7 +370,7 @@ pred
 - What kind of interval---confidence or prediction---would you use for this task, and why?
   - You want to use a prediction interval because you want to capture new observations and not mean trends. You want to predict the range of possible T_norm values.
 - What fraction of validation cases lie within the interval you predict? How does this compare with `pr_level`?
-  - (Your response here)
+  - The fraction of validation cases that lie within the interval the model predicted was 0.983. This is higher than the specified pr_level of 0.8.
 - What interval for `T_norm` would you recommend the design team to plan around?
   - The T_norm ranges from 1.46 and 2.30.
 - Are there any other recommendations you would provide?
